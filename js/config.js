@@ -5,7 +5,7 @@
 
 const Config = {
     // URLs par défaut
-    DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbwxSUBuaf30tj740I_14__obC_hw67SrSbO_RscZofsvtjYGaSOfUFUToawQ7tnktfa/exec',
+    DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbxLct4NJB6wDYoGNgW0jCa2P9GAM5Wi037x64ODZXiIqFXx7BACwh5D3E5WUgNhhV_y/exec',
     DEFAULT_FORMATION_URL: 'https://sites.google.com/phood.fr/phoodacademy/formation',
     
     // Clés de stockage local
