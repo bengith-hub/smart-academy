@@ -238,7 +238,7 @@ const API = {
      */
     async updateFormationComplete(formationId, formationData) {
         return await this.call('modifierFormationComplete', {
-            formationId: formationId,
+            Id: formationId,
             ...formationData
         });
     },
