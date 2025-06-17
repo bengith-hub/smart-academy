@@ -6,7 +6,7 @@
 const API = {
     // État de la connexion
     connected: false,
-    
+
     /**
      * Teste la connexion à l'API
      */
@@ -14,10 +14,10 @@ const API = {
         const statusElement = document.getElementById('connection-status');
         const iconElement = document.getElementById('status-icon');
         const textElement = document.getElementById('status-text');
-        
+
         // Sauvegarder la configuration avant le test
         Config.save();
-        
+
         // Validation de l'URL
         try {
             Config.validateApiUrl(Config.current.apiUrl);
@@ -25,40 +25,39 @@ const API = {
             this.updateConnectionStatus('error', error.message);
             return false;
         }
-        
+
         // Mettre en état de chargement
         this.updateConnectionStatus('loading', 'Test de connexion...');
-        
+
         try {
             console.log('🔍 Test de connexion vers:', Config.current.apiUrl);
-            
+
             const response = await fetch(`${Config.current.apiUrl}?action=version&timestamp=${Date.now()}`);
             console.log('📡 Réponse brute:', response);
-            
+
             if (!response.ok) {
                 throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
             }
-            
+
             const result = await response.json();
             console.log('📋 Réponse parsée:', result);
-            
+
             if (result.success) {
                 this.connected = true;
                 this.updateConnectionStatus('connected', 'Connecté');
-                
+
                 // Masquer la configuration si connexion réussie
                 document.getElementById('api-config').style.display = 'none';
-                
+
                 UI.showNotification('✅ Connexion établie avec succès !', 'success');
                 return true;
             } else {
                 throw new Error(result.message || 'Réponse invalide du serveur');
             }
-            
         } catch (error) {
             console.error('❌ Erreur de connexion:', error);
             this.connected = false;
-            
+
             // Message d'erreur détaillé
             let errorMessage = error.message;
             if (error.message.includes('Failed to fetch')) {
@@ -66,16 +65,16 @@ const API = {
             } else if (error.message.includes('Unexpected token')) {
                 errorMessage = 'Réponse invalide du serveur. Vérifiez que votre script est bien déployé.';
             }
-            
+
             this.updateConnectionStatus('error', 'Erreur');
             UI.showNotification('❌ Erreur de connexion : ' + errorMessage, 'error');
-            
+
             // Afficher la configuration pour correction
             document.getElementById('api-config').style.display = 'block';
             return false;
         }
     },
-    
+
     /**
      * Met à jour le statut de connexion dans l'interface
      */
@@ -83,20 +82,20 @@ const API = {
         const statusElement = document.getElementById('connection-status');
         const iconElement = document.getElementById('status-icon');
         const textElement = document.getElementById('status-text');
-        
+
         const statusConfig = {
-            'loading': { class: 'status-loading', icon: '⏳' },
-            'connected': { class: 'status-connected', icon: '✅' },
-            'error': { class: 'status-error', icon: '❌' }
+            loading: { class: 'status-loading', icon: '⏳' },
+            connected: { class: 'status-connected', icon: '✅' },
+            error: { class: 'status-error', icon: '❌' }
         };
-        
+
         const config = statusConfig[status] || statusConfig.error;
-        
+
         statusElement.className = `connection-status ${config.class}`;
         iconElement.textContent = config.icon;
         textElement.textContent = message;
     },
-    
+
     /**
      * Effectue un appel API générique
      */
@@ -104,38 +103,37 @@ const API = {
         if (!this.connected && action !== 'test') {
             console.warn('⚠️ API non connectée, tentative d\'appel pour:', action);
         }
-        
+
         try {
             const requestData = {
                 action: action,
                 ...data
             };
-            
+
             console.log('📤 Appel API:', action, requestData);
-            
+
             const response = await fetch(Config.current.apiUrl, {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/x-www-form-urlencoded' 
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body: 'data=' + encodeURIComponent(JSON.stringify(requestData))
+                body: JSON.stringify(requestData)
             });
-            
+
             if (!response.ok) {
                 throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
             }
-            
+
             const result = await response.json();
             console.log('📥 Réponse API:', action, result);
-            
+
             return result;
-            
         } catch (error) {
             console.error('❌ Erreur appel API:', action, error);
             throw error;
         }
     },
-    
+
     /**
      * Obtient la liste des formations
      * ✅ CORRIGÉ : utilise getFormations et retourne directement le résultat
@@ -144,9 +142,9 @@ const API = {
         try {
             const response = await fetch(`${Config.current.apiUrl}?action=getFormations&timestamp=${Date.now()}`);
             const result = await response.json();
-            
+
             console.log('📚 Formations reçues:', result);
-            
+
             if (result.success && result.donnees && Array.isArray(result.donnees)) {
                 // ✅ CORRECTION : Retourner directement le résultat du GAS
                 return result;
@@ -163,13 +161,12 @@ const API = {
                     donnees: []
                 };
             }
-            
         } catch (error) {
             console.error('❌ Erreur chargement formations:', error);
             throw error;
         }
     },
-    
+
     /**
      * Parse les données des formations reçues de l'API
      * ⚠️ FONCTION CONSERVÉE mais plus utilisée dans getFormations
@@ -179,19 +176,19 @@ const API = {
         if (!Array.isArray(data) || data.length === 0) {
             return [];
         }
-        
+
         // Ignorer la première ligne (headers)
         return data.slice(1).map((row, index) => {
             // Ignorer les lignes vides
             if (!row[0] && !row[1]) {
                 return null;
             }
-            
+
             const hasValidName = row[1] && row[1].toString().trim().length > 0;
             if (!hasValidName) {
                 return null;
             }
-            
+
             return {
                 id: row[0] || `TEMP_${index}`,
                 titre: row[1] || 'Formation sans titre',
@@ -216,7 +213,7 @@ const API = {
             };
         }).filter(formation => formation !== null);
     },
-    
+
     /**
      * Parse une chaîne de modules
      */
@@ -224,21 +221,21 @@ const API = {
         if (!modulesString || typeof modulesString !== 'string') {
             return Config.DEFAULT_MODULES;
         }
-        
+
         return modulesString.split(',').map((module, index) => ({
             titre: module.trim() || `Module ${index + 1}`,
             description: `Description du module ${module.trim() || (index + 1)}`,
             canvaUrl: ''
         }));
     },
-    
+
     /**
      * Crée une nouvelle formation
      */
     async createFormation(formationData) {
         return await this.call('creerFormation', formationData);
     },
-    
+
     /**
      * Met à jour une formation complète
      */
@@ -248,7 +245,7 @@ const API = {
             ...formationData
         });
     },
-    
+
     /**
      * Met à jour le statut d'une formation
      */
@@ -258,14 +255,14 @@ const API = {
             nouveauStatut: newStatus === 'Active' ? 'TRUE' : 'FALSE'
         });
     },
-    
+
     /**
      * Crée un nouvel apprenant
      */
     async createApprenant(apprenantData) {
         return await this.call('creerApprenant', apprenantData);
     },
-    
+
     /**
      * Obtient les statistiques
      */
@@ -277,7 +274,7 @@ const API = {
             return { apprenants: 0, sessions: 0, completions: 0 };
         }
     },
-    
+
     /**
      * Génère des données de test en cas d'erreur
      */
