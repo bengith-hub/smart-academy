@@ -40,7 +40,8 @@ const Formations = {
         UI.showLoading(true, 'Chargement des formations...');
         
         try {
-            this.list = await API.getFormations();
+            const result = await API.getFormations();
+            this.list = result.donnees || [];
             console.log(`📚 ${this.list.length} formations chargées`);
             
             this.render();
