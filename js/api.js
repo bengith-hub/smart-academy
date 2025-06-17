@@ -32,7 +32,7 @@ const API = {
         try {
             console.log('🔍 Test de connexion vers:', Config.current.apiUrl);
             
-            const response = await fetch(`${Config.current.apiUrl}?action=test&timestamp=${Date.now()}`);
+            const response = await fetch(`${Config.current.apiUrl}?action=version&timestamp=${Date.now()}`);
             console.log('📡 Réponse brute:', response);
             
             if (!response.ok) {
