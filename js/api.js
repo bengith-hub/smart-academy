@@ -111,6 +111,10 @@ const API = {
             };
 
             console.log('📤 Appel API:', action, requestData);
+            console.log('📤 DEBUG - Action:', action);
+            console.log('📤 DEBUG - Data original:', data);
+            console.log('📤 DEBUG - RequestData final:', requestData);
+            console.log('📤 DEBUG - JSON stringifié:', JSON.stringify(requestData));
 
             const response = await fetch(Config.current.apiUrl, {
                 method: 'POST',
@@ -237,6 +241,16 @@ const API = {
      * Met à jour une formation complète
      */
     async updateFormationComplete(formationId, formationData) {
+        console.log('🔍 DEBUG updateFormationComplete:');
+        console.log('  - formationId:', formationId);
+        console.log('  - formationData:', formationData);
+    
+        const dataToSend = {
+            id: formationId,
+            ...formationData
+        };
+        console.log('  - dataToSend:', dataToSend);
+
         return await this.call('modifierFormationComplete', {
             id: formationId,
             ...formationData
