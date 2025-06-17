@@ -370,7 +370,12 @@ const Formations = {
             canvaUrl: ''
         };
         
-        this.editingFormation.modules.push(newModule);
+        if (this.editingFormation.modules[index]) {
+            this.editingFormation.modules[index][field] = value;
+            console.log('Module mis à jour:', index, field, value);
+        } else {
+            console.error('Module non trouvé à l\'index:', index);
+        }
         
         // Régénérer la liste des modules
         document.getElementById('modules-list').innerHTML = this.generateModulesHTML(this.editingFormation.modules);
