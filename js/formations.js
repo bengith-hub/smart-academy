@@ -334,15 +334,27 @@ const Formations = {
      * Met à jour un module
      */
     updateModule(index, field, value) {
+        if (!this.editingFormation) {
+            console.error('editingFormation is null');
+            return;
+        }
+    
         if (!this.editingFormation.modules) {
             this.editingFormation.modules = [];
         }
-        if (!this.editingFormation.modules[index]) {
-            this.editingFormation.modules[index] = {};
+    
+        // S'assurer que le module existe
+       if (!this.editingFormation.modules[index]) {
+           this.editingFormation.modules[index] = {
+               titre: '',
+               description: '',
+               canvaUrl: ''
+           };
         }
-        this.editingFormation.modules[index][field] = value;
-        console.log('Module mis à jour:', index, field, value);
-    },
+    
+    this.editingFormation.modules[index][field] = value;
+    console.log('Module mis à jour:', index, field, value);
+}
     
     /**
      * Ajoute un module
