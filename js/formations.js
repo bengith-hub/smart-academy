@@ -352,9 +352,14 @@ const Formations = {
            };
         }
     
-    this.editingFormation.modules[index][field] = value;
-    console.log('Module mis à jour:', index, field, value);
-},
+// Vérifier que l'objet module existe avant de modifier
+       if (this.editingFormation.modules[index]) {
+           this.editingFormation.modules[index][field] = value;
+           console.log('Module mis à jour:', index, field, value);
+       } else {
+           console.error('Module non trouvé à l\'index:', index);
+       }
+    },
     
     /**
      * Ajoute un module
@@ -370,12 +375,7 @@ const Formations = {
             canvaUrl: ''
         };
         
-        if (this.editingFormation.modules[index]) {
-            this.editingFormation.modules[index][field] = value;
-            console.log('Module mis à jour:', index, field, value);
-        } else {
-            console.error('Module non trouvé à l\'index:', index);
-        }
+            this.editingFormation.modules.push(newModule);
         
         // Régénérer la liste des modules
         document.getElementById('modules-list').innerHTML = this.generateModulesHTML(this.editingFormation.modules);
