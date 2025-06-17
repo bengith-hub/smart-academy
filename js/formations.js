@@ -354,7 +354,7 @@ const Formations = {
     
     this.editingFormation.modules[index][field] = value;
     console.log('Module mis à jour:', index, field, value);
-}
+},
     
     /**
      * Ajoute un module
