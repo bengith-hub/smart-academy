@@ -138,22 +138,30 @@ const API = {
     
     /**
      * Obtient la liste des formations
+     * ✅ CORRIGÉ : utilise getFormations et retourne directement le résultat
      */
     async getFormations() {
         try {
-            const response = await fetch(`${Config.current.apiUrl}?action=obtenirFormations&timestamp=${Date.now()}`);
+            const response = await fetch(`${Config.current.apiUrl}?action=getFormations&timestamp=${Date.now()}`);
             const result = await response.json();
             
             console.log('📚 Formations reçues:', result);
             
             if (result.success && result.donnees && Array.isArray(result.donnees)) {
-                return this.parseFormationsData(result.donnees);
+                // ✅ CORRECTION : Retourner directement le résultat du GAS
+                return result;
             } else if (Array.isArray(result)) {
                 // Format de compatibilité
-                return this.parseFormationsData(result);
+                return {
+                    success: true,
+                    donnees: result
+                };
             } else {
                 console.warn('Format de données inattendu:', result);
-                return [];
+                return {
+                    success: false,
+                    donnees: []
+                };
             }
             
         } catch (error) {
@@ -164,6 +172,8 @@ const API = {
     
     /**
      * Parse les données des formations reçues de l'API
+     * ⚠️ FONCTION CONSERVÉE mais plus utilisée dans getFormations
+     * Peut servir pour d'autres transformations de données si besoin
      */
     parseFormationsData(data) {
         if (!Array.isArray(data) || data.length === 0) {
