@@ -244,18 +244,23 @@ const API = {
         console.log('🔍 DEBUG updateFormationComplete:');
         console.log('  - formationId:', formationId);
         console.log('  - formationData:', formationData);
-    
-        const dataToSend = {
-            id: formationId,
-            ...formationData
-        };
-        console.log('  - dataToSend:', dataToSend);
 
-        return await this.call('modifierFormationComplete', {
-            id: formationId,
-            ...formationData
-        });
-    },
+        // Appel direct comme le test qui fonctionne
+        const response = await fetch(Config.current.apiUrl, {
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'modifierFormationComplete',
+                id: formationId,
+                ...formationData
+            })
+         });
+
+         if (!response.ok) {
+             throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+         }
+
+         return await response.json();
+     },
 
     /**
      * Met à jour le statut d'une formation
