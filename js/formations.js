@@ -290,10 +290,14 @@ const Formations = {
     /**
      * Génère l'HTML des modules
      */
-    generateModulesHTML(modules) {
-        if (!modules || modules.length === 0) {
-            modules = Config.DEFAULT_MODULES;
-        }
+     generateModulesHTML(modules) {
+         if (!modules || !Array.isArray(modules) || modules.length === 0) {
+             modules = (window.Config && Config.DEFAULT_MODULES) ? Config.DEFAULT_MODULES : [
+                 { titre: 'Introduction', description: 'Module d\'introduction', canvaUrl: '' },
+                 { titre: 'Contenu principal', description: 'Contenu de la formation', canvaUrl: '' },
+                 { titre: 'Évaluation', description: 'Quiz final', canvaUrl: '' }
+             ];
+         }
 
         return modules.map((module, index) => `
             <div class="module-item" data-module-index="${index}">
