@@ -442,6 +442,8 @@ const Formations = {
      * Sauvegarde complète
      */
     async saveComplete(formationId) {
+        console.log('🔍 DEBUG saveComplete - formationId reçu:', formationId);
+        console.log('🔍 DEBUG editingFormation:', this.editingFormation);
         // Validation
         const titre = document.getElementById('edit-titre').value.trim();
         if (!titre) {
@@ -473,7 +475,8 @@ const Formations = {
             };
             
             console.log('Données complètes à sauvegarder:', updatedFormation);
-            
+            console.log('🔍 DEBUG avant appel API - formationId:', formationId);
+            console.log('🔍 DEBUG données à envoyer:', updatedFormation);
             const result = await API.updateFormationComplete(formationId, updatedFormation);
             
             if (result.success) {
