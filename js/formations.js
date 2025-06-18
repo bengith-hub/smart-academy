@@ -333,29 +333,40 @@ const Formations = {
     /**
      * Met à jour un module
      */
-    updateModule(index, field, value) {
-        if (!this.editingFormation) {
-            console.error('editingFormation is null');
-            return;
-        }
+updateModule(index, field, value) {
+    console.log('🔍 DEBUG updateModule appelé:', index, field, value);
     
-        if (!this.editingFormation.modules) {
-            this.editingFormation.modules = [];
-        }
-    
-// S'assurer que le module existe - correction
-        while (this.editingFormation.modules.length <= index) {
-            this.editingFormation.modules.push({
-                titre: '',
-                description: '',
-                canvaUrl: ''
-            });
-        }
+    if (!this.editingFormation) {
+        console.error('editingFormation is null');
+        return;
+    }
 
-        // Maintenant on peut modifier en toute sécurité
+    if (!this.editingFormation.modules) {
+        this.editingFormation.modules = [];
+        console.log('🔧 Création array modules');
+    }
+
+    // S'assurer que le module existe - version renforcée
+    while (this.editingFormation.modules.length <= index) {
+        const newModule = {
+            titre: '',
+            description: '',
+            canvaUrl: ''
+        };
+        this.editingFormation.modules.push(newModule);
+        console.log('➕ Module créé à l\'index:', this.editingFormation.modules.length - 1, newModule);
+    }
+
+    // Vérification finale avant modification
+    if (this.editingFormation.modules[index]) {
         this.editingFormation.modules[index][field] = value;
-        console.log('Module mis à jour:', index, field, value);
-    },
+        console.log('✅ Module mis à jour:', index, field, value);
+        console.log('📋 État du module:', this.editingFormation.modules[index]);
+    } else {
+        console.error('❌ ERREUR: Module toujours undefined à l\'index:', index);
+        console.log('📊 État de modules:', this.editingFormation.modules);
+    }
+},
     
     /**
      * Ajoute un module
