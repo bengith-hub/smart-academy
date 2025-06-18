@@ -184,16 +184,64 @@ const Formations = {
     /**
      * Édition complète d'une formation
      */
+    /**
+     * CORRECTION : Remplacer la méthode editComplete() dans formations.js
+     */
+
     editComplete(formationId) {
         const formation = this.list.find(f => f.id === formationId);
         if (!formation) return;
 
         this.editingFormation = JSON.parse(JSON.stringify(formation)); // Clone profond
-        console.log('FORMATION ORIGINALE modules:', formation.modules);
-        console.log('FORMATION CLONÉE modules:', this.editingFormation.modules);
 
-        UI.showModal('Édition complète de la formation', this.generateEditHTML(formation));
-    },
+    // CORRECTION PRINCIPALE: Vérifier et corriger le type de modules
+    if (typeof this.editingFormation.modules === 'number') {
+        console.log('⚠️ Modules détecté comme nombre (' + this.editingFormation.modules + '), création tableau par défaut');
+        
+        // Créer un tableau de modules par défaut
+        const nombreModules = this.editingFormation.modules;
+        this.editingFormation.modules = [];
+        
+        // Créer le bon nombre de modules
+        for (let i = 0; i < nombreModules; i++) {
+            this.editingFormation.modules.push({
+                titre: `Module ${i + 1}`,
+                description: `Description du module ${i + 1}`,
+                canvaUrl: ''
+            });
+        }
+        
+        console.log('✅ Modules créés:', this.editingFormation.modules);
+    }
+    
+    // Vérification additionnelle : s'assurer que modules est un tableau
+    if (!Array.isArray(this.editingFormation.modules)) {
+        console.log('⚠️ Modules n\'est pas un tableau, création par défaut');
+        this.editingFormation.modules = [
+            { titre: 'Module 1', description: 'Introduction', canvaUrl: '' },
+            { titre: 'Module 2', description: 'Contenu principal', canvaUrl: '' },
+            { titre: 'Module 3', description: 'Évaluation', canvaUrl: '' }
+        ];
+    }
+
+    // Vérification finale : s'assurer qu'aucun module n'est undefined
+    this.editingFormation.modules = this.editingFormation.modules.map((module, index) => {
+        if (!module || typeof module !== 'object') {
+            console.log(`🔧 Correction module ${index} undefined`);
+            return {
+                titre: `Module ${index + 1}`,
+                description: `Description du module ${index + 1}`,
+                canvaUrl: ''
+            };
+        }
+        return module;
+    });
+
+    console.log('🔍 DEBUG editingFormation final:', this.editingFormation);
+    console.log('🔍 DEBUG modules final:', this.editingFormation.modules);
+
+    UI.showModal('Édition complète de la formation', this.generateEditHTML(formation));
+},
 
     /**
      * Génère l'HTML d'édition complète
