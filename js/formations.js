@@ -645,7 +645,7 @@ const Formations = {
         const formation = this.list.find(f => f.id === formationId);
         if (!formation) return;
 
-        const previewUrl = `${Config.current.formationUrl}?formationId=${formationId}&preview=true`;
+        const previewUrl = `https://bengith-hub.github.io/smart-academy/formation.html?formationId=${formationId}&preview=true`;
 
         UI.showModal('Tester la formation', `
             <div style="text-align: center;">
