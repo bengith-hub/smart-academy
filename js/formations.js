@@ -7,19 +7,19 @@ const Formations = {
     // État des formations
     list: [],
     editingFormation: null,
-    
+
     /**
      * Initialise le module formations
      */
     async init() {
         console.log('📚 Initialisation du module formations...');
-        
+
         this.setupEventListeners();
         await this.load();
-        
+
         console.log('✅ Module formations initialisé');
     },
-    
+
     /**
      * Configure les gestionnaires d'événements
      */
@@ -32,35 +32,35 @@ const Formations = {
             });
         }
     },
-    
+
     /**
      * Charge la liste des formations
      */
     async load() {
         UI.showLoading(true, 'Chargement des formations...');
-        
+
         try {
             const result = await API.getFormations();
             this.list = result.donnees || [];
             console.log(`📚 ${this.list.length} formations chargées`);
-            
+
             this.render();
             this.updateStats();
-            
+
         } catch (error) {
             console.error('❌ Erreur chargement formations:', error);
-            
+
             // Mode test en cas d'erreur
             this.list = API.getTestData();
             this.render();
             this.updateStats();
-            
+
             UI.showNotification('⚠️ Erreur de chargement - Mode test activé', 'warning');
         } finally {
             UI.showLoading(false);
         }
     },
-    
+
     /**
      * Rafraîchit la liste des formations
      */
@@ -68,14 +68,14 @@ const Formations = {
         await this.load();
         UI.showNotification('🔄 Formations actualisées', 'info');
     },
-    
+
     /**
      * Affiche les formations dans l'interface
      */
     render() {
         const grid = document.getElementById('formations-grid');
         if (!grid) return;
-        
+
         if (this.list.length === 0) {
             grid.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">
@@ -88,42 +88,38 @@ const Formations = {
             `;
             return;
         }
-        
+
         grid.innerHTML = this.list.map(formation => this.generateFormationCard(formation)).join('');
     },
-    
+
     /**
      * Génère la carte HTML d'une formation
      */
     generateFormationCard(formation) {
         const modulesCount = formation.modules ? formation.modules.length : 0;
-        
+
         return `
             <div class="formation-card" data-formation-id="${formation.id}">
                 <div class="formation-status status-${formation.statut === 'Active' ? 'publie' : 'brouillon'}">
                     ${formation.statut === 'Active' ? '📢 Publiée' : '📝 Brouillon'}
                 </div>
-                
                 <h3 class="formation-title">${formation.titre}</h3>
-                
                 <div class="formation-meta">
                     ${formation.domaine} • ${formation.dureeHeures}h • ${formation.tarifHT}€ HT • ${modulesCount} modules
                 </div>
-                
                 <div class="formation-description">
                     ${formation.objectifs}
                 </div>
-                
                 <div class="formation-actions">
                     <button class="btn btn-primary" onclick="Formations.editComplete('${formation.id}')">
                         ✏️ Modifier
                     </button>
-                    ${formation.statut === 'Active' ? 
+                    ${formation.statut === 'Active' ?
                         `<button class="btn btn-warning" onclick="Formations.unpublish('${formation.id}')">📝 Dépublier</button>` :
                         `<button class="btn btn-success" onclick="Formations.publish('${formation.id}')">📢 Publier</button>`
                     }
                     <button class="btn btn-outline" onclick="Formations.preview('${formation.id}')">
-                        👁️ Tester
+                        👁 Tester
                     </button>
                     <button class="btn btn-secondary" onclick="Apprenants.manage('${formation.id}')">
                         👥 Apprenants
@@ -132,7 +128,7 @@ const Formations = {
             </div>
         `;
     },
-    
+
     /**
      * Met à jour les statistiques
      */
@@ -143,10 +139,10 @@ const Formations = {
             brouillons: this.list.filter(f => f.statut !== 'Active').length,
             apprenants: 0 // À implémenter
         };
-        
+
         UI.updateStats(stats);
     },
-    
+
     /**
      * Crée une nouvelle formation
      */
@@ -154,7 +150,7 @@ const Formations = {
         if (!UI.validateForm('formation-form')) {
             return;
         }
-        
+
         const formData = {
             titre: document.getElementById('formation-nom').value,
             domaine: document.getElementById('formation-domaine').value,
@@ -168,40 +164,35 @@ const Formations = {
             tarifHT: parseInt(document.getElementById('formation-prix').value) || 0,
             certification: 'Attestation de formation'
         };
-        
+
         try {
             const result = await API.createFormation(formData);
-            
+
             if (result.success) {
                 UI.showNotification('✅ Formation créée avec succès !', 'success');
-                
-                // Réinitialiser le formulaire
                 document.getElementById('formation-form').reset();
-                
-                // Recharger et basculer vers le catalogue
                 await this.load();
                 UI.showTab('catalogue');
             } else {
                 throw new Error(result.error || 'Erreur lors de la création');
             }
-            
         } catch (error) {
             UI.showNotification('❌ Erreur : ' + error.message, 'error');
         }
     },
-    
+
     /**
      * Édition complète d'une formation
      */
     editComplete(formationId) {
         const formation = this.list.find(f => f.id === formationId);
         if (!formation) return;
-        
+
         this.editingFormation = JSON.parse(JSON.stringify(formation)); // Clone profond
-        
+
         UI.showModal('Édition complète de la formation', this.generateEditHTML(formation));
     },
-    
+
     /**
      * Génère l'HTML d'édition complète
      */
@@ -274,7 +265,7 @@ const Formations = {
                 <!-- Actions -->
                 <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef;">
                     <button type="button" class="btn btn-outline" onclick="Formations.previewEdit()">
-                        👁️ Prévisualiser
+                        👁 Prévisualiser
                     </button>
                     <button type="button" class="btn btn-secondary" onclick="UI.closeModal()">
                         Annuler
@@ -286,18 +277,18 @@ const Formations = {
             </div>
         `;
     },
-    
+
     /**
      * Génère l'HTML des modules
      */
-     generateModulesHTML(modules) {
-         if (!modules || !Array.isArray(modules) || modules.length === 0) {
-             modules = (window.Config && Config.DEFAULT_MODULES) ? Config.DEFAULT_MODULES : [
-                 { titre: 'Introduction', description: 'Module d\'introduction', canvaUrl: '' },
-                 { titre: 'Contenu principal', description: 'Contenu de la formation', canvaUrl: '' },
-                 { titre: 'Évaluation', description: 'Quiz final', canvaUrl: '' }
-             ];
-         }
+    generateModulesHTML(modules) {
+        if (!modules || !Array.isArray(modules) || modules.length === 0) {
+            modules = (window.Config && Config.DEFAULT_MODULES) ? Config.DEFAULT_MODULES : [
+                { titre: 'Introduction', description: 'Module d\'introduction', canvaUrl: '' },
+                { titre: 'Contenu principal', description: 'Contenu de la formation', canvaUrl: '' },
+                { titre: 'Évaluation', description: 'Quiz final', canvaUrl: '' }
+            ];
+        }
 
         return modules.map((module, index) => `
             <div class="module-item" data-module-index="${index}">
@@ -310,18 +301,18 @@ const Formations = {
                 <div class="form-group">
                     <label class="form-label">Titre du module *</label>
                     <input type="text" class="form-input module-titre" value="${module.titre}" 
-                           onchange="Formations.updateModule(${index}, 'titre', this.value)" required>
+                        onchange="Formations.updateModule(${index}, 'titre', this.value)" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Description</label>
                     <input type="text" class="form-input module-description" value="${module.description}" 
-                           onchange="Formations.updateModule(${index}, 'description', this.value)">
+                        onchange="Formations.updateModule(${index}, 'description', this.value)">
                 </div>
                 <div class="form-group">
                     <label class="form-label">URL Canva (lien de partage)</label>
                     <input type="url" class="form-input module-canva" value="${module.canvaUrl}" 
-                           onchange="Formations.updateModule(${index}, 'canvaUrl', this.value)"
-                           placeholder="https://www.canva.com/design/...">
+                        onchange="Formations.updateModule(${index}, 'canvaUrl', this.value)"
+                        placeholder="https://www.canva.com/design/...">
                     <small style="color: #666; margin-top: 5px; display: block;">
                         💡 Utilisez le lien de partage public de votre présentation Canva
                     </small>
@@ -329,61 +320,61 @@ const Formations = {
             </div>
         `).join('');
     },
-    
+
     /**
      * Met à jour un module
      */
-updateModule(index, field, value) {
-    console.log('🔍 DEBUG updateModule appelé:', index, field, value);
-    
-    if (!this.editingFormation) {
-        console.error('editingFormation is null');
-        return;
-    }
+    updateModule(index, field, value) {
+        console.log('🔍 DEBUG updateModule appelé:', index, field, value);
 
-    if (!this.editingFormation.modules) {
-        this.editingFormation.modules = [];
-        console.log('🔧 Création array modules');
-    }
+        if (!this.editingFormation) {
+            console.error('editingFormation is null');
+            return;
+        }
 
-    // S'assurer que le module existe - version corrigée pour les trous
-    while (this.editingFormation.modules.length <= index) {
-           this.editingFormation.modules.push({
-               titre: '',
-               description: '',
-               canvaUrl: ''
-           });
-    }
+        if (!this.editingFormation.modules) {
+            this.editingFormation.modules = [];
+            console.log('🔧 Création array modules');
+        }
 
-    // Correction spéciale pour les éléments undefined
-    if (!this.editingFormation.modules[index] || this.editingFormation.modules[index] === undefined) {
-        this.editingFormation.modules[index] = {
-            titre: '',
-            description: '',
-            canvaUrl: ''
-        };
-        console.log('🔧 Correction élément undefined à l\'index:', index);
-    }
+        // S'assurer que le module existe - version corrigée pour les trous
+        while (this.editingFormation.modules.length <= index) {
+            this.editingFormation.modules.push({
+                titre: '',
+                description: '',
+                canvaUrl: ''
+            });
+        }
 
-    // Vérification finale avant modification
-    if (!this.editingFormation) {
-        console.error('❌ editingFormation est devenu null !');
-        return;
-    }
-    if (!this.editingFormation.modules) {
-        console.error('❌ modules est devenu null !');
-        return;
-    }
-    if (this.editingFormation.modules[index]) {
-        this.editingFormation.modules[index][field] = value;
-        console.log('✅ Module mis à jour:', index, field, value);
-        console.log('📋 État du module:', this.editingFormation.modules[index]);
-    } else {
-        console.error('❌ ERREUR: Module toujours undefined à l\'index:', index);
-        console.log('📊 État de modules:', this.editingFormation.modules);
-    }
-},
-    
+        // Correction spéciale pour les éléments undefined
+        if (!this.editingFormation.modules[index] || this.editingFormation.modules[index] === undefined) {
+            this.editingFormation.modules[index] = {
+                titre: '',
+                description: '',
+                canvaUrl: ''
+            };
+            console.log('🔧 Correction élément undefined à l\'index:', index);
+        }
+
+        // Vérification finale avant modification
+        if (!this.editingFormation) {
+            console.error('❌ editingFormation est devenu null !');
+            return;
+        }
+        if (!this.editingFormation.modules) {
+            console.error('❌ modules est devenu null !');
+            return;
+        }
+        if (this.editingFormation.modules[index]) {
+            this.editingFormation.modules[index][field] = value;
+            console.log('✅ Module mis à jour:', index, field, value);
+            console.log('📋 État du module:', this.editingFormation.modules[index]);
+        } else {
+            console.error('❌ ERREUR: Module toujours undefined à l\'index:', index);
+            console.log('📊 État de modules:', this.editingFormation.modules);
+        }
+    },
+
     /**
      * Ajoute un module
      */
@@ -391,21 +382,21 @@ updateModule(index, field, value) {
         if (!this.editingFormation.modules) {
             this.editingFormation.modules = [];
         }
-        
+
         const newModule = {
             titre: `Module ${this.editingFormation.modules.length + 1}`,
             description: 'Description du nouveau module',
             canvaUrl: ''
         };
-        
-            this.editingFormation.modules.push(newModule);
-        
+
+        this.editingFormation.modules.push(newModule);
+
         // Régénérer la liste des modules
         document.getElementById('modules-list').innerHTML = this.generateModulesHTML(this.editingFormation.modules);
-        
+
         UI.showNotification('➕ Module ajouté !', 'success');
     },
-    
+
     /**
      * Supprime un module
      */
@@ -414,17 +405,17 @@ updateModule(index, field, value) {
             UI.showNotification('❌ Il faut au moins un module', 'error');
             return;
         }
-        
+
         if (UI.confirm('Supprimer ce module ?')) {
             this.editingFormation.modules.splice(index, 1);
-            
+
             // Régénérer la liste des modules
             document.getElementById('modules-list').innerHTML = this.generateModulesHTML(this.editingFormation.modules);
-            
+
             UI.showNotification('🗑️ Module supprimé', 'info');
         }
     },
-    
+
     /**
      * Prévisualise les modifications
      */
@@ -437,7 +428,7 @@ updateModule(index, field, value) {
         const evaluation = document.getElementById('edit-evaluation').value;
         const score = document.getElementById('edit-score').value;
         const prix = document.getElementById('edit-prix').value;
-        
+
         const previewHTML = `
             <div style="background: #e8f5e9; border: 1px solid #c3e6cb; border-radius: 10px; padding: 20px; margin: 20px 0;">
                 <h5 style="color: var(--success); margin-bottom: 15px;">👁️ Aperçu de la formation</h5>
@@ -451,21 +442,21 @@ updateModule(index, field, value) {
                     <div style="margin-bottom: 10px;"><strong>Évaluation :</strong> ${evaluation} (${score}% minimum)</div>
                     <div style="margin-bottom: 15px;"><strong>Modules :</strong></div>
                     <ul style="margin-left: 20px;">
-                        ${(this.editingFormation.modules || []).map((module, i) => 
+                        ${(this.editingFormation.modules || []).map((module, i) =>
                             `<li style="margin-bottom: 5px;"><strong>${module.titre}</strong> - ${module.description}</li>`
                         ).join('')}
                     </ul>
                 </div>
             </div>
         `;
-        
+
         // Ajouter la prévisualisation au modal
         const modalBody = document.getElementById('modal-body');
         modalBody.insertAdjacentHTML('afterbegin', previewHTML);
-        
+
         UI.showNotification('👁️ Prévisualisation générée !', 'info');
     },
-    
+
     /**
      * Sauvegarde complète
      */
@@ -478,7 +469,7 @@ updateModule(index, field, value) {
             UI.showNotification('❌ Le titre est obligatoire', 'error');
             return;
         }
-        
+
         // Vérifier que tous les modules ont un titre
         const modulesTitres = document.querySelectorAll('.module-titre');
         for (let input of modulesTitres) {
@@ -488,7 +479,7 @@ updateModule(index, field, value) {
                 return;
             }
         }
-        
+
         try {
             const updatedFormation = {
                 titre: titre,
@@ -501,12 +492,12 @@ updateModule(index, field, value) {
                 tarifHT: parseInt(document.getElementById('edit-prix').value),
                 modules: JSON.parse(JSON.stringify(this.editingFormation.modules || []))
             };
-            
+
             console.log('Données complètes à sauvegarder:', updatedFormation);
             console.log('🔍 DEBUG avant appel API - formationId:', formationId);
             console.log('🔍 DEBUG données à envoyer:', updatedFormation);
             const result = await API.updateFormationComplete(formationId, updatedFormation);
-            
+
             if (result.success) {
                 // Mettre à jour l'état local avec les modules modifiés
                 const formation = this.list.find(f => f.id === formationId);
@@ -514,22 +505,21 @@ updateModule(index, field, value) {
                     Object.assign(formation, updatedFormation);
                     // S'assurer que les modules sont correctement copiés
                     formation.modules = JSON.parse(JSON.stringify(this.editingFormation.modules || []));
-        
+
                     this.render();
                     UI.closeModal();
                     UI.showNotification('✅ Formation sauvegardée avec succès !', 'success');
-        
+
                     // Actualiser depuis l'API après un délai plus long
                     setTimeout(() => this.load(), 2000);
                 }
-            }
             } else {
                 throw new Error(result.error || 'Erreur lors de la sauvegarde');
             }
-            
+
         } catch (error) {
             console.error('Erreur sauvegarde complète:', error);
-            
+
             // Mise à jour locale en cas d'erreur API
             const formation = this.list.find(f => f.id === formationId);
             if (formation) {
@@ -544,7 +534,7 @@ updateModule(index, field, value) {
                     tarifHT: parseInt(document.getElementById('edit-prix').value),
                     modules: this.editingFormation.modules
                 });
-                
+
                 this.render();
                 UI.closeModal();
                 UI.showNotification('⚠️ Formation modifiée localement (erreur sauvegarde API)', 'warning');
@@ -553,7 +543,7 @@ updateModule(index, field, value) {
             }
         }
     },
-    
+
     /**
      * Publie une formation
      */
@@ -562,7 +552,7 @@ updateModule(index, field, value) {
             await this.updateStatus(formationId, 'Active');
         }
     },
-    
+
     /**
      * Dépublie une formation
      */
@@ -571,14 +561,14 @@ updateModule(index, field, value) {
             await this.updateStatus(formationId, 'Inactive');
         }
     },
-    
+
     /**
      * Met à jour le statut d'une formation
      */
     async updateStatus(formationId, newStatus) {
         try {
             const result = await API.updateFormationStatus(formationId, newStatus);
-            
+
             if (result.success) {
                 // Mettre à jour l'état local
                 const formation = this.list.find(f => f.id === formationId);
@@ -591,22 +581,22 @@ updateModule(index, field, value) {
             } else {
                 throw new Error(result.error || 'Erreur lors de la mise à jour');
             }
-            
+
         } catch (error) {
             console.error('Erreur mise à jour statut:', error);
             UI.showNotification('❌ Erreur : ' + error.message, 'error');
         }
     },
-    
+
     /**
      * Prévisualise une formation
      */
     preview(formationId) {
         const formation = this.list.find(f => f.id === formationId);
         if (!formation) return;
-        
+
         const previewUrl = `${Config.current.formationUrl}?formationId=${formationId}&preview=true`;
-        
+
         UI.showModal('Tester la formation', `
             <div style="text-align: center;">
                 <h4>🎓 ${formation.titre}</h4>
