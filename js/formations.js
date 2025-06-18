@@ -499,7 +499,7 @@ updateModule(index, field, value) {
                 modalitesEvaluation: document.getElementById('edit-evaluation').value,
                 scoreMinimum: parseInt(document.getElementById('edit-score').value),
                 tarifHT: parseInt(document.getElementById('edit-prix').value),
-                modules: this.editingFormation.modules || []
+                modules: JSON.parse(JSON.stringify(this.editingFormation.modules || []))
             };
             
             console.log('Données complètes à sauvegarder:', updatedFormation);
