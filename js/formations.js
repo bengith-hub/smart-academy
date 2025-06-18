@@ -343,7 +343,7 @@ const Formations = {
             this.editingFormation.modules = [];
         }
     
-        // S'assurer que le module existe - correction
+// S'assurer que le module existe - correction
         while (this.editingFormation.modules.length <= index) {
             this.editingFormation.modules.push({
                 titre: '',
@@ -351,10 +351,10 @@ const Formations = {
                 canvaUrl: ''
             });
         }
-    
-// Vérifier que l'objet module existe avant de modifier
-           this.editingFormation.modules[index][field] = value;
-           console.log('Module mis à jour:', index, field, value);
+
+        // Maintenant on peut modifier en toute sécurité
+        this.editingFormation.modules[index][field] = value;
+        console.log('Module mis à jour:', index, field, value);
     },
     
     /**
