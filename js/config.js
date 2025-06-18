@@ -6,7 +6,7 @@
 const Config = {
     // URLs par défaut
     DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbw0xN6luTVczvtci5LDYeo7BThkiVGyem1YhHgtEucDtZz8CLURogqq8789TcM25p0/exec',
-    DEFAULT_FORMATION_URL: 'https://sites.google.com/phood.fr/phoodacademy/formation',
+    DEFAULT_FORMATION_URL: 'https://bengith-hub.github.io/smart-academy/formation.html',
     
     // Clés de stockage local
     STORAGE_KEYS: {
