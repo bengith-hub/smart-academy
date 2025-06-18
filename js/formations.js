@@ -366,6 +366,14 @@ updateModule(index, field, value) {
     }
 
     // Vérification finale avant modification
+    if (!this.editingFormation) {
+        console.error('❌ editingFormation est devenu null !');
+        return;
+    }
+    if (!this.editingFormation.modules) {
+        console.error('❌ modules est devenu null !');
+        return;
+    }
     if (this.editingFormation.modules[index]) {
         this.editingFormation.modules[index][field] = value;
         console.log('✅ Module mis à jour:', index, field, value);
