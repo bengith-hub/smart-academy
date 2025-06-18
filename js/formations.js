@@ -189,6 +189,8 @@ const Formations = {
         if (!formation) return;
 
         this.editingFormation = JSON.parse(JSON.stringify(formation)); // Clone profond
+        console.log('FORMATION ORIGINALE modules:', formation.modules);
+        console.log('FORMATION CLONÉE modules:', this.editingFormation.modules);
 
         UI.showModal('Édition complète de la formation', this.generateEditHTML(formation));
     },
