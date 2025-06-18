@@ -511,7 +511,7 @@ const Formations = {
                     UI.showNotification('✅ Formation sauvegardée avec succès !', 'success');
 
                     // Actualiser depuis l'API après un délai plus long
-                    setTimeout(() => this.load(), 2000);
+                    // setTimeout(() => this.load(), 2000);
                 }
             } else {
                 throw new Error(result.error || 'Erreur lors de la sauvegarde');
