@@ -508,18 +508,21 @@ updateModule(index, field, value) {
             const result = await API.updateFormationComplete(formationId, updatedFormation);
             
             if (result.success) {
-                // Mettre à jour l'état local
+                // Mettre à jour l'état local avec les modules modifiés
                 const formation = this.list.find(f => f.id === formationId);
                 if (formation) {
                     Object.assign(formation, updatedFormation);
-                    
+                    // S'assurer que les modules sont correctement copiés
+                    formation.modules = JSON.parse(JSON.stringify(this.editingFormation.modules || []));
+        
                     this.render();
                     UI.closeModal();
                     UI.showNotification('✅ Formation sauvegardée avec succès !', 'success');
-                    
-                    // Actualiser depuis l'API
-                    setTimeout(() => this.load(), 1000);
+        
+                    // Actualiser depuis l'API après un délai plus long
+                    setTimeout(() => this.load(), 2000);
                 }
+            }
             } else {
                 throw new Error(result.error || 'Erreur lors de la sauvegarde');
             }
