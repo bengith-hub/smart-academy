@@ -346,15 +346,23 @@ updateModule(index, field, value) {
         console.log('🔧 Création array modules');
     }
 
-    // S'assurer que le module existe - version renforcée
+    // S'assurer que le module existe - version corrigée pour les trous
     while (this.editingFormation.modules.length <= index) {
-        const newModule = {
+           this.editingFormation.modules.push({
+               titre: '',
+               description: '',
+               canvaUrl: ''
+           });
+    }
+
+    // Correction spéciale pour les éléments undefined
+    if (!this.editingFormation.modules[index] || this.editingFormation.modules[index] === undefined) {
+        this.editingFormation.modules[index] = {
             titre: '',
             description: '',
             canvaUrl: ''
         };
-        this.editingFormation.modules.push(newModule);
-        console.log('➕ Module créé à l\'index:', this.editingFormation.modules.length - 1, newModule);
+        console.log('🔧 Correction élément undefined à l\'index:', index);
     }
 
     // Vérification finale avant modification
