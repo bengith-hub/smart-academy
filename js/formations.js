@@ -343,22 +343,18 @@ const Formations = {
             this.editingFormation.modules = [];
         }
     
-        // S'assurer que le module existe
-       if (!this.editingFormation.modules[index]) {
-           this.editingFormation.modules[index] = {
-               titre: '',
-               description: '',
-               canvaUrl: ''
-           };
+        // S'assurer que le module existe - correction
+        while (this.editingFormation.modules.length <= index) {
+            this.editingFormation.modules.push({
+                titre: '',
+                description: '',
+                canvaUrl: ''
+            });
         }
     
 // Vérifier que l'objet module existe avant de modifier
-       if (this.editingFormation.modules[index]) {
            this.editingFormation.modules[index][field] = value;
            console.log('Module mis à jour:', index, field, value);
-       } else {
-           console.error('Module non trouvé à l\'index:', index);
-       }
     },
     
     /**
