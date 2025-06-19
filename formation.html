@@ -1879,7 +1879,7 @@
             try {
                 console.log('Chargement de la progression pour:', formationState.apprenantId);
                 
-                const response = await fetch(`${API_URL}?action=obtenirProgression&apprenantId=${formationState.apprenantId}&formationId=${formationState.formationId}&timestamp=${Date.now()}`);
+                const response = await fetch(`${API_URL}?action=getFormations&timestamp=${Date.now()}`);
                 const result = await response.json();
                 
                 if (result && result.progression) {
