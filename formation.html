@@ -825,32 +825,36 @@
         async function loadFormationData() {
             try {
                 console.log('Chargement formation ID:', formationState.formationId);
-                
+        
                 // Toujours essayer l'API en premier
                 try {
                     const response = await fetch(`${API_URL}?action=obtenirFormations&timestamp=${Date.now()}`);
                     const result = await response.json();
-                    
+            
                     console.log('Réponse API:', result);
-                    
+            
                     let formationRow = null;
-                    
+            
                     if (result.success && result.donnees && Array.isArray(result.donnees)) {
-                        // Chercher par nom de formation (titre)
+                        // CORRECTION: Chercher par ID en priorité, puis par nom
                         formationRow = result.donnees.find(row => 
-                            row[1] === formationState.formationId || // B: Nom/titre
-                            row[0] === formationState.formationId    // A: ID
+                            row[0] === formationState.formationId ||     // A: ID (priorité)
+                            row[1] === formationState.formationId       // B: Nom/titre (fallback)
                         );
+                
+                        console.log('Recherche par ID:', formationState.formationId);
+                        console.log('Formations disponibles:', result.donnees.map(row => ({id: row[0], nom: row[1]})));
+                
                     } else if (Array.isArray(result)) {
                         formationRow = result.find(row => 
-                            row[1] === formationState.formationId || 
-                            row[0] === formationState.formationId
+                            row[0] === formationState.formationId || 
+                            row[1] === formationState.formationId
                         );
                     }
-                    
+            
                     if (formationRow) {
-                        console.log('Formation trouvée dans l\'API:', formationRow);
-                        
+                        console.log('✅ Formation trouvée dans l\'API:', formationRow);
+                
                         formationState.formation = {
                             id: formationRow[0],           // A: ID
                             titre: formationRow[1],        // B: Nom
@@ -864,7 +868,7 @@
                             scoreMinimum: 70,
                             dureeEstimee: (formationRow[5] || 4) * 60
                         };
-                        
+                
                         // Parsing des modules depuis les données API si disponibles
                         if (formationRow[4] && formationRow[6]) {
                             formationState.formation.modules = parseModulesFromAPI(
@@ -879,21 +883,37 @@
                                 formationState.formation.domaine
                             );
                         }
-                        
-                        console.log('Formation mappée depuis API:', formationState.formation);
-                        console.log('Modules détaillés:', formationState.formation.modules);
+                
+                        console.log('✅ Formation mappée depuis API:', formationState.formation);
+                        console.log('📚 Modules détaillés:', formationState.formation.modules);
                         return; // Succès API, on s'arrête là
+                    } else {
+                        console.warn('❌ Formation non trouvée dans l\'API pour ID:', formationState.formationId);
+                        console.log('📋 IDs disponibles:', result.donnees ? result.donnees.map(row => row[0]) : 'Aucune donnée');
                     }
                 } catch (apiError) {
-                    console.error('Erreur API:', apiError);
+                    console.error('❌ Erreur API:', apiError);
                 }
-                
-                // Fallback : données de test locales
-                console.log('Utilisation des données de test locales');
-                
+        
+                // Fallback : données de test locales avec correspondance ID
+                console.log('🔄 Utilisation des données de test locales');
+        
+                // CORRECTION: Mapping ID vers formations test
+                const formationsTestMapping = {
+                    // Recherche par ID exact ou approximatif
+                    'FOR_174991181640_890': 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
+                    'CYBER_001': 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
+                    'HYGIENE_001': 'Hygiène alimentaire',
+                    'HACCP_001': 'HACCP',
+                    'ALLERGENES_001': 'Allergènes alimentaires'
+                };
+        
+                // Essayer de trouver une correspondance
+                let formationName = formationsTestMapping[formationState.formationId] || formationState.formationId;
+        
                 const formationsTest = {
                     'BONNES PRATIQUES EN CYBERSÉCURITÉ': {
-                        id: 'CYBER_001',
+                        id: formationState.formationId, // Garder l'ID original
                         titre: 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
                         objectifs: 'Comprendre les enjeux de la cybersécurité Identifier les menaces et les vulnérabilités de votre SI Mettre en place une politique et une démarche de maîtrise de la cybersécurité',
                         domaine: 'Cybersécurité',
@@ -901,7 +921,7 @@
                         actif: false // Brouillon
                     },
                     'Hygiène alimentaire': {
-                        id: 'HYGIENE_001',
+                        id: formationState.formationId,
                         titre: 'Hygiène alimentaire',
                         objectifs: 'Formation obligatoire hygiène et sécurité alimentaire',
                         domaine: 'Hygiène alimentaire',
@@ -909,7 +929,7 @@
                         actif: true
                     },
                     'HACCP': {
-                        id: 'HACCP_001',
+                        id: formationState.formationId,
                         titre: 'HACCP',
                         objectifs: 'Analyse des risques et maîtrise des points critiques',
                         domaine: 'Hygiène alimentaire',
@@ -917,7 +937,7 @@
                         actif: true
                     },
                     'Allergènes alimentaires': {
-                        id: 'ALLERGENES_001',
+                        id: formationState.formationId,
                         titre: 'Allergènes alimentaires',
                         objectifs: 'Formation sur la gestion des allergènes',
                         domaine: 'Hygiène alimentaire',
@@ -926,11 +946,11 @@
                     }
                 };
 
-                const formationData = formationsTest[formationState.formationId];
-                
+                const formationData = formationsTest[formationName];
+        
                 if (formationData) {
-                    console.log('Formation trouvée (mode test):', formationData);
-                    
+                    console.log('✅ Formation trouvée (mode test):', formationData);
+            
                     formationState.formation = {
                         ...formationData,
                         // Données par défaut
@@ -945,20 +965,21 @@
                         scoreMinimum: 70,
                         dureeEstimee: formationData.dureeHeures * 60
                     };
-                    
+            
                     // Générer les modules selon le domaine
                     formationState.formation.modules = generateDefaultModules(
                         formationState.formation.titre, 
                         formationState.formation.domaine
                     );
-                    
-                    console.log('Formation mappée:', formationState.formation);
+            
+                    console.log('✅ Formation mappée:', formationState.formation);
                 } else {
-                    throw new Error(`Formation "${formationState.formationId}" non trouvée`);
+                    console.error('❌ Aucune formation trouvée pour:', formationState.formationId);
+                    throw new Error(`Formation "${formationState.formationId}" non trouvée (ni dans l'API ni dans les données test)`);
                 }
-                
+        
             } catch (error) {
-                console.error('Erreur chargement formation:', error);
+                console.error('❌ Erreur chargement formation:', error);
                 throw new Error(`Impossible de charger la formation: ${error.message}`);
             }
         }
