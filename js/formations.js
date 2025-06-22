@@ -154,9 +154,9 @@ const Formations = {
         const formData = {
             titre: document.getElementById('formation-nom').value,
             domaine: document.getElementById('formation-domaine').value,
-            objectifs: document.getElementById('formation-objectifs').value,
-            prerequis: 'Aucun',
-            dureeHeures: parseInt(document.getElementById('formation-duree').value),
+            objectifs: document.getElementById('formation-objectifs').value,  // ✅ Correct
+            // PAS "description" mais "objectifs"
+            dureeHeures: parseInt(document.getElementById('formation-duree').value), // ✅ dureeHeures pas duree
             modalites: 'E-learning asynchrone',
             methodesPedagogiques: 'Modules interactifs',
             modalitesEvaluation: 'QCM automatisés',
