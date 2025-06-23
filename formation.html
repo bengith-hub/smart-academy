@@ -557,13 +557,9 @@
     <div class="test-panel" id="test-panel">
         <h4>🧪 Mode Test</h4>
         <div class="test-controls">
-            <select id="formation-select">
-                <option value="">Choisir une formation</option>
-                <option value="BONNES PRATIQUES EN CYBERSÉCURITÉ">BONNES PRATIQUES EN CYBERSÉCURITÉ</option>
-                <option value="Hygiène alimentaire">Hygiène alimentaire</option>
-                <option value="HACCP">HACCP</option>
-                <option value="Allergènes alimentaires">Allergènes alimentaires</option>
-            </select>
+        <select id="formation-select">
+            <option value="">Chargement des formations...</option>
+        </select>
             
             <select id="apprenant-select">
                 <option value="">Mode anonyme</option>
@@ -665,7 +661,7 @@
 
     <script>
         // Configuration
-        const API_URL = 'https://script.google.com/macros/s/AKfycbxOuSpN_gxkTF7Fde452VWsnFtaQPD95u8E8yZf8bY4xaep8u1OpPa4coXcN16KgBsa/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxDbLMwHM2rdncw6aGChcEPlqbVPSm5Fj8n6G2OzUnIo4S70LVJtRA4laRgFt1r6_QI/exec';
         
         // État global de la formation
         let formationState = {
@@ -691,7 +687,31 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeFormation();
             startSessionTimer();
+            loadFormationsForTest(); // Ajouter cette ligne
         });
+        // Charger les formations disponibles pour le test
+        async function loadFormationsForTest() {
+            try {
+                const response = await fetch(`${API_URL}?action=getFormations&timestamp=${Date.now()}`);
+                const result = await response.json();
+        
+                const select = document.getElementById('formation-select');
+                select.innerHTML = '<option value="">Choisir une formation</option>';
+        
+                if (result.success && result.donnees) {
+                    result.donnees.forEach(formation => {
+                        const option = document.createElement('option');
+                        option.value = formation.id;
+                        option.textContent = formation.titre;
+                        select.appendChild(option);
+                    });
+                    console.log('✅ Formations chargées dans le menu test');
+                }
+            } catch (error) {
+                console.error('❌ Erreur chargement formations pour test:', error);
+                // Garder le message de chargement en cas d'erreur
+            }
+        }
 
         // Gestion du panel de test
         function toggleTestPanel() {
@@ -891,98 +911,18 @@
                         console.warn('❌ Formation non trouvée dans l\'API pour ID:', formationState.formationId);
                         console.log('📋 IDs disponibles:', result.donnees ? result.donnees.map(row => row[0]) : 'Aucune donnée');
                     }
-                } catch (apiError) {
-                    console.error('❌ Erreur API:', apiError);
-                }
-        
-                // Fallback : données de test locales avec correspondance ID
-                console.log('🔄 Utilisation des données de test locales');
-        
-                // CORRECTION: Mapping ID vers formations test
-                const formationsTestMapping = {
-                    // Recherche par ID exact ou approximatif
-                    'FOR_174991181640_890': 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
-                    'CYBER_001': 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
-                    'HYGIENE_001': 'Hygiène alimentaire',
-                    'HACCP_001': 'HACCP',
-                    'ALLERGENES_001': 'Allergènes alimentaires'
-                };
-        
-                // Essayer de trouver une correspondance
-                let formationName = formationsTestMapping[formationState.formationId] || formationState.formationId;
-        
-                const formationsTest = {
-                    'BONNES PRATIQUES EN CYBERSÉCURITÉ': {
-                        id: formationState.formationId, // Garder l'ID original
-                        titre: 'BONNES PRATIQUES EN CYBERSÉCURITÉ',
-                        objectifs: 'Comprendre les enjeux de la cybersécurité Identifier les menaces et les vulnérabilités de votre SI Mettre en place une politique et une démarche de maîtrise de la cybersécurité',
-                        domaine: 'Cybersécurité',
-                        dureeHeures: 14,
-                        actif: false // Brouillon
-                    },
-                    'Hygiène alimentaire': {
-                        id: formationState.formationId,
-                        titre: 'Hygiène alimentaire',
-                        objectifs: 'Formation obligatoire hygiène et sécurité alimentaire',
-                        domaine: 'Hygiène alimentaire',
-                        dureeHeures: 14,
-                        actif: true
-                    },
-                    'HACCP': {
-                        id: formationState.formationId,
-                        titre: 'HACCP',
-                        objectifs: 'Analyse des risques et maîtrise des points critiques',
-                        domaine: 'Hygiène alimentaire',
-                        dureeHeures: 14,
-                        actif: true
-                    },
-                    'Allergènes alimentaires': {
-                        id: formationState.formationId,
-                        titre: 'Allergènes alimentaires',
-                        objectifs: 'Formation sur la gestion des allergènes',
-                        domaine: 'Hygiène alimentaire',
-                        dureeHeures: 7,
-                        actif: true
+                        } catch (apiError) {
+                            console.error('❌ Erreur API:', apiError);
+                        }
+                
+                        // Si on arrive ici, c'est qu'on n'a pas trouvé la formation
+                        throw new Error(`Formation "${formationState.formationId}" non trouvée dans l'API`);
+                
+                    } catch (error) {
+                        console.error('❌ Erreur chargement formation:', error);
+                        throw new Error(`Impossible de charger la formation: ${error.message}`);
                     }
-                };
-
-                const formationData = formationsTest[formationName];
-        
-                if (formationData) {
-                    console.log('✅ Formation trouvée (mode test):', formationData);
-            
-                    formationState.formation = {
-                        ...formationData,
-                        // Données par défaut
-                        prerequis: 'Aucun',
-                        modalites: 'E-learning asynchrone',
-                        methodesPedagogiques: 'Modules interactifs',
-                        modalitesEvaluation: 'QCM automatisés',
-                        ressources: 'Plateforme Smart Academy',
-                        tarifHT: 500,
-                        certification: 'Attestation de formation',
-                        version: '1.0',
-                        scoreMinimum: 70,
-                        dureeEstimee: formationData.dureeHeures * 60
-                    };
-            
-                    // Générer les modules selon le domaine
-                    formationState.formation.modules = generateDefaultModules(
-                        formationState.formation.titre, 
-                        formationState.formation.domaine
-                    );
-            
-                    console.log('✅ Formation mappée:', formationState.formation);
-                } else {
-                    console.error('❌ Aucune formation trouvée pour:', formationState.formationId);
-                    throw new Error(`Formation "${formationState.formationId}" non trouvée (ni dans l'API ni dans les données test)`);
                 }
-        
-            } catch (error) {
-                console.error('❌ Erreur chargement formation:', error);
-                throw new Error(`Impossible de charger la formation: ${error.message}`);
-            }
-        }
 
         // Parser les modules depuis les données API
         function parseModulesFromAPI(modulesData, canvaUrls, quizUrls) {
