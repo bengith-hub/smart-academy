@@ -23,6 +23,7 @@ const API = {
             Config.validateApiUrl(Config.current.apiUrl);
         } catch (error) {
             this.updateConnectionStatus('error', error.message);
+            UI.showNotification('❌ URL invalide : ' + error.message, 'error');
             return false;
         }
 
