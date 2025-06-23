@@ -553,10 +553,14 @@
 
     <!-- Initialisation -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Smart Academy - Démarrage...');
-            SmartAcademy.init();
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Smart Academy - Démarrage...');
+    
+        // NOUVEAU: Initialiser la configuration d'abord
+        Config.init();
+    
+        SmartAcademy.init();
+});
     </script>
 </body>
 </html>
