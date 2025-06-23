@@ -79,9 +79,12 @@ const SmartAcademy = {
         // 4. Formations (asynchrone)
         await Formations.init();
         
-        // 5. Apprenants (synchrone)
-        Apprenants.init();
-        
+        // 5. Apprenants (synchrone - si disponible)
+        if (Apprenants && Apprenants.init) {
+            Apprenants.init();
+        } else {
+            console.warn('⚠️ Module Apprenants non disponible');
+        }
         console.log('✅ Modules initialisés');
     },
     
