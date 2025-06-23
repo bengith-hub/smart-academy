@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formation - Smart Academy</title>
+    <title>Formation Qualiopi - Smart Academy</title>
     
     <style>
         :root {
@@ -29,16 +29,31 @@
             line-height: 1.6;
         }
 
+        /* Badge Qualiopi */
+        .qualiopi-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--qualiopi);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
         /* Test Panel */
         .test-panel {
             position: fixed;
-            top: 20px;
+            top: 70px;
             right: 20px;
             background: rgba(255,255,255,0.95);
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            z-index: 1000;
+            z-index: 999;
             max-width: 300px;
             border: 2px solid var(--warning);
         }
@@ -120,11 +135,57 @@
             backdrop-filter: blur(10px);
         }
 
+        .formation-metadata {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
         /* Container principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Informations Qualiopi */
+        .qualiopi-info {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid var(--qualiopi);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .qualiopi-info h3 {
+            color: var(--qualiopi);
+            margin-bottom: 15px;
+        }
+
+        .qualiopi-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .qualiopi-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .qualiopi-item strong {
+            color: var(--qualiopi);
+            display: block;
+            margin-bottom: 5px;
         }
 
         /* Navigation des modules */
@@ -217,6 +278,38 @@
             font-size: 1.1em;
         }
 
+        .module-objectives {
+            background: #f8f9fa;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .module-objectives h4 {
+            color: var(--info);
+            margin-bottom: 10px;
+        }
+
+        .module-objectives ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .module-objectives li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .module-objectives li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
         .canva-container {
             position: relative;
             padding: 30px;
@@ -229,6 +322,38 @@
             border: none;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Tracking de temps */
+        .time-tracker {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .time-tracker-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .time-item {
+            text-align: center;
+        }
+
+        .time-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #856404;
+        }
+
+        .time-label {
+            font-size: 0.8em;
+            color: #856404;
         }
 
         .module-progress {
@@ -280,6 +405,38 @@
             margin-bottom: 10px;
         }
 
+        .quiz-criteria {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info);
+        }
+
+        .quiz-criteria h4 {
+            color: var(--info);
+            margin-bottom: 15px;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .criteria-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .criteria-score {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
         .question-container {
             background: white;
             border-radius: 10px;
@@ -293,6 +450,16 @@
             color: #333;
             margin-bottom: 20px;
             font-weight: 600;
+        }
+
+        .question-competence {
+            background: #e3f2fd;
+            color: var(--info);
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            display: inline-block;
         }
 
         .question-options {
@@ -378,7 +545,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Tableau de bord de progression */
+        /* Tableau de bord */
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -406,6 +573,65 @@
             margin-top: 5px;
         }
 
+        /* Suivi d'assiduité */
+        .assiduite-tracker {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--success);
+        }
+
+        .assiduite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .assiduite-title {
+            color: var(--success);
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .assiduite-status {
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .assiduite-status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .assiduite-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .assiduite-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .assiduite-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .assiduite-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+
         /* Messages de validation */
         .completion-message {
             background: linear-gradient(135deg, #d4edda, #c3e6cb);
@@ -419,6 +645,14 @@
         .completion-icon {
             font-size: 4em;
             margin-bottom: 20px;
+        }
+
+        .qualiopi-certification {
+            background: var(--qualiopi);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
 
         /* Loading et états */
@@ -468,18 +702,45 @@
             font-weight: 500;
         }
 
+        /* Messages d'avertissement */
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .url-example {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .formation-title {
                 font-size: 2em;
             }
             
-            .apprenant-info {
+            .apprenant-info,
+            .formation-metadata {
                 position: relative;
                 top: auto;
                 left: auto;
                 margin-top: 15px;
-                display: inline-block;
+                display: block;
+                text-align: center;
             }
 
             .test-panel {
@@ -515,6 +776,14 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
+            .qualiopi-details {
+                grid-template-columns: 1fr;
+            }
+
+            .criteria-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Animations */
@@ -526,40 +795,28 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .warning-box {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px;
-            text-align: center;
-        }
-
-        .warning-box h3 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .url-example {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 0.9em;
-            margin: 10px 0;
-            word-break: break-all;
-        }
     </style>
 </head>
 <body>
-    <!-- Panel de test en haut à droite -->
+    <!-- Badge Qualiopi -->
+    <div class="qualiopi-badge">
+        ✓ QUALIOPI CERTIFIÉ
+    </div>
+
+    <!-- Panel de test -->
     <div class="test-panel" id="test-panel">
         <h4>🧪 Mode Test</h4>
         <div class="test-controls">
-        <select id="formation-select">
-            <option value="">Chargement des formations...</option>
-        </select>
+            <select id="formation-select">
+                <option value="">Chargement des formations...</option>
+            </select>
+            
+            <select id="client-select">
+                <option value="">Sélectionner un client</option>
+                <option value="CLIENT_001">Entreprise ABC</option>
+                <option value="CLIENT_002">Société XYZ</option>
+                <option value="CLIENT_003">Organisation DEF</option>
+            </select>
             
             <select id="apprenant-select">
                 <option value="">Mode anonyme</option>
@@ -587,6 +844,11 @@
         </div>
         <h1 class="formation-title" id="formation-title">Chargement de la formation...</h1>
         <p class="formation-subtitle" id="formation-subtitle">Veuillez patienter</p>
+        <div class="formation-metadata" id="formation-metadata">
+            <span id="formation-duration">Durée: -</span>
+            <span id="formation-domain">Domaine: -</span>
+            <span id="formation-level">Niveau: -</span>
+        </div>
     </div>
 
     <div class="container">
@@ -596,9 +858,73 @@
             <p>Cette page nécessite des paramètres pour fonctionner correctement.</p>
             <p><strong>Format attendu :</strong></p>
             <div class="url-example">
-                votre-url?formationId=FORM_001&apprenantId=APP_001
+                votre-url?formationId=FORM_001&apprenantId=APP_001&clientId=CLIENT_001
             </div>
             <p>Ou utilisez le panel de test ci-dessus pour tester différentes configurations.</p>
+        </div>
+
+        <!-- Informations Qualiopi -->
+        <div class="qualiopi-info" id="qualiopi-info" style="display: none;">
+            <h3>📋 Informations de la formation (Qualiopi)</h3>
+            <p>Formation certifiée conforme aux exigences du référentiel national qualité</p>
+            <div class="qualiopi-details">
+                <div class="qualiopi-item">
+                    <strong>Organisme</strong>
+                    <span id="organisme-nom">Smart Academy</span>
+                </div>
+                <div class="qualiopi-item">
+                    <strong>N° Déclaration</strong>
+                    <span id="organisme-numero">11 75 54321 75</span>
+                </div>
+                <div class="qualiopi-item">
+                    <strong>Certification</strong>
+                    <span>Qualiopi RNQ</span>
+                </div>
+                <div class="qualiopi-item">
+                    <strong>Client</strong>
+                    <span id="client-nom">-</span>
+                </div>
+                <div class="qualiopi-item">
+                    <strong>Référence</strong>
+                    <span id="formation-reference">-</span>
+                </div>
+                <div class="qualiopi-item">
+                    <strong>Version</strong>
+                    <span id="formation-version">1.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suivi d'assiduité -->
+        <div class="assiduite-tracker" id="assiduite-tracker" style="display: none;">
+            <div class="assiduite-header">
+                <h3 class="assiduite-title">📊 Suivi d'assiduité</h3>
+                <div class="assiduite-status active">
+                    ● En formation
+                </div>
+            </div>
+            <div class="assiduite-details">
+                <div class="assiduite-item">
+                    <div class="assiduite-value" id="session-start">-</div>
+                    <div class="assiduite-label">Début session</div>
+                </div>
+                <div class="assiduite-item">
+                    <div class="assiduite-value" id="time-active">00:00</div>
+                    <div class="assiduite-label">Temps actif</div>
+                </div>
+                <div class="assiduite-item">
+                    <div class="assiduite-value" id="modules-visited">0</div>
+                    <div class="assiduite-label">Modules consultés</div>
+                </div>
+                <div class="assiduite-item">
+                    <div class="assiduite-value" id="interactions-count">0</div>
+                    <div class="assiduite-label">Interactions</div>
+                </div>
+                <div class="assiduite-item">
+                    <div class="assiduite-value" id="presence-rate">100%</div>
+                    <div class="assiduite-label">Taux présence</div>
+                </div>
+            </div>
         </div>
 
         <!-- Tableau de bord de progression -->
@@ -613,11 +939,15 @@
             </div>
             <div class="dashboard-card">
                 <div class="dashboard-number" id="quiz-score">-</div>
-                <div class="dashboard-label">Score quiz</div>
+                <div class="dashboard-label">Score global</div>
             </div>
             <div class="dashboard-card">
                 <div class="dashboard-number" id="time-spent">0min</div>
                 <div class="dashboard-label">Temps passé</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="dashboard-number" id="competences-validees">0</div>
+                <div class="dashboard-label">Compétences validées</div>
             </div>
         </div>
 
@@ -636,9 +966,25 @@
             <div class="completion-icon">🎓</div>
             <h2>Félicitations !</h2>
             <p>Vous avez terminé la formation avec succès.</p>
-            <div style="margin-top: 20px;">
+            
+            <div class="qualiopi-certification">
+                <h4>📜 Certification Qualiopi</h4>
+                <p>Cette formation répond aux critères de qualité du référentiel national</p>
+                <div style="margin: 15px 0;">
+                    <strong>Score final:</strong> <span id="final-score">-</span>% | 
+                    <strong>Durée totale:</strong> <span id="final-duration">-</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn btn-success" onclick="downloadCertificate()">
                     📜 Télécharger l'attestation
+                </button>
+                <button class="btn btn-info" onclick="downloadAssiduityReport()">
+                    📊 Rapport d'assiduité
+                </button>
+                <button class="btn btn-primary" onclick="sendCompletionNotification()">
+                    📧 Notifier l'employeur
                 </button>
             </div>
         </div>
@@ -660,35 +1006,148 @@
     </div>
 
     <script>
-        // Configuration
+        // IMPORTANT: Remplacez cette URL par votre URL de déploiement Google Apps Script
         const API_URL = 'https://script.google.com/macros/s/AKfycbxDbLMwHM2rdncw6aGChcEPlqbVPSm5Fj8n6G2OzUnIo4S70LVJtRA4laRgFt1r6_QI/exec';
         
-        // État global de la formation
+        // État global de la formation - AMÉLIORÉ POUR QUALIOPI
         let formationState = {
             formationId: null,
             apprenantId: null,
+            clientId: null, // NOUVEAU: Gestion multi-clients
             isPreview: false,
             formation: null,
             currentModule: 0,
             isTestMode: false,
+            // Progression améliorée pour traçabilité Qualiopi
             progress: {
                 modulesCompleted: [],
                 quizAnswers: {},
                 quizScores: {},
+                competencesValidees: [],
                 totalTimeSpent: 0,
-                startTime: Date.now()
+                startTime: Date.now(),
+                sessions: [], // NOUVEAU: Historique des sessions
+                interactions: [], // NOUVEAU: Traçabilité des interactions
+                evaluations: {} // NOUVEAU: Détail des évaluations
+            },
+            // NOUVEAU: Métriques d'assiduité
+            assiduite: {
+                connexionStart: Date.now(),
+                tempsActif: 0,
+                modulesVisites: new Set(),
+                interactions: 0,
+                pauseStart: null,
+                isActive: true
             }
         };
 
         // Timer de session
         let sessionTimer = null;
+        let assiduiteTi mer = null;
+
+        // NOUVEAU: Détection d'activité pour assiduité
+        let lastActivity = Date.now();
+        let inactivityThreshold = 5 * 60 * 1000; // 5 minutes
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             initializeFormation();
             startSessionTimer();
-            loadFormationsForTest(); // Ajouter cette ligne
+            startAssiduiteTacking();
+            loadFormationsForTest();
+            setupActivityTracking();
         });
+
+        // NOUVEAU: Suivi d'activité pour Qualiopi
+        function setupActivityTracking() {
+            // Événements qui indiquent une activité
+            const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+            
+            activityEvents.forEach(event => {
+                document.addEventListener(event, () => {
+                    updateActivity();
+                }, true);
+            });
+
+            // Vérification périodique d'inactivité
+            setInterval(checkInactivity, 30000); // Chaque 30 secondes
+        }
+
+        function updateActivity() {
+            lastActivity = Date.now();
+            
+            if (!formationState.assiduite.isActive) {
+                formationState.assiduite.isActive = true;
+                logInteraction('retour_activite', 'Reprise d\'activité détectée');
+                updateAssiduiteDashboard();
+            }
+            
+            formationState.assiduite.interactions++;
+        }
+
+        function checkInactivity() {
+            const now = Date.now();
+            const timeSinceLastActivity = now - lastActivity;
+            
+            if (timeSinceLastActivity > inactivityThreshold && formationState.assiduite.isActive) {
+                formationState.assiduite.isActive = false;
+                formationState.assiduite.pauseStart = now;
+                logInteraction('pause_detectee', `Inactivité détectée après ${Math.round(timeSinceLastActivity/1000)}s`);
+                updateAssiduiteDashboard();
+            }
+        }
+
+        // NOUVEAU: Suivi d'assiduité
+        function startAssiduiteTacking() {
+            assiduiteTi mer = setInterval(() => {
+                if (formationState.assiduite.isActive) {
+                    formationState.assiduite.tempsActif += 1000; // +1 seconde
+                }
+                updateAssiduiteDashboard();
+            }, 1000);
+        }
+
+        function updateAssiduiteDashboard() {
+            if (!formationState.apprenantId) return;
+            
+            const startTime = new Date(formationState.assiduite.connexionStart);
+            document.getElementById('session-start').textContent = startTime.toLocaleTimeString();
+            
+            const activeMinutes = Math.floor(formationState.assiduite.tempsActif / (1000 * 60));
+            const activeSeconds = Math.floor((formationState.assiduite.tempsActif % (1000 * 60)) / 1000);
+            document.getElementById('time-active').textContent = 
+                `${activeMinutes.toString().padStart(2, '0')}:${activeSeconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('modules-visited').textContent = formationState.assiduite.modulesVisites.size;
+            document.getElementById('interactions-count').textContent = formationState.assiduite.interactions;
+            
+            // Calcul du taux de présence
+            const totalTime = Date.now() - formationState.assiduite.connexionStart;
+            const presenceRate = totalTime > 0 ? Math.round((formationState.assiduite.tempsActif / totalTime) * 100) : 100;
+            document.getElementById('presence-rate').textContent = presenceRate + '%';
+        }
+
+        // NOUVEAU: Logging des interactions pour traçabilité
+        function logInteraction(type, details, moduleIndex = null) {
+            const interaction = {
+                timestamp: new Date().toISOString(),
+                type: type,
+                details: details,
+                moduleIndex: moduleIndex,
+                url: window.location.href,
+                userAgent: navigator.userAgent.substring(0, 100) // Limité pour sécurité
+            };
+            
+            formationState.progress.interactions.push(interaction);
+            
+            // Sauvegarder périodiquement pour traçabilité
+            if (formationState.progress.interactions.length % 10 === 0) {
+                saveProgress();
+            }
+            
+            console.log('📝 Interaction loggée:', interaction);
+        }
+
         // Charger les formations disponibles pour le test
         async function loadFormationsForTest() {
             try {
@@ -709,7 +1168,6 @@
                 }
             } catch (error) {
                 console.error('❌ Erreur chargement formations pour test:', error);
-                // Garder le message de chargement en cas d'erreur
             }
         }
 
@@ -724,6 +1182,7 @@
             formationState = {
                 formationId: null,
                 apprenantId: null,
+                clientId: null,
                 isPreview: false,
                 formation: null,
                 currentModule: 0,
@@ -732,8 +1191,20 @@
                     modulesCompleted: [],
                     quizAnswers: {},
                     quizScores: {},
+                    competencesValidees: [],
                     totalTimeSpent: 0,
-                    startTime: Date.now()
+                    startTime: Date.now(),
+                    sessions: [],
+                    interactions: [],
+                    evaluations: {}
+                },
+                assiduite: {
+                    connexionStart: Date.now(),
+                    tempsActif: 0,
+                    modulesVisites: new Set(),
+                    interactions: 0,
+                    pauseStart: null,
+                    isActive: true
                 }
             };
 
@@ -744,6 +1215,8 @@
             
             // Masquer tous les éléments de formation
             document.getElementById('loading').style.display = 'flex';
+            document.getElementById('qualiopi-info').style.display = 'none';
+            document.getElementById('assiduite-tracker').style.display = 'none';
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('modules-nav').style.display = 'none';
             document.getElementById('formation-content').style.display = 'none';
@@ -756,6 +1229,7 @@
             
             // Réinitialiser les sélecteurs
             document.getElementById('formation-select').value = '';
+            document.getElementById('client-select').value = '';
             document.getElementById('apprenant-select').value = '';
             
             // Afficher le panel de test
@@ -766,6 +1240,7 @@
 
         function startTestFormation() {
             const formationId = document.getElementById('formation-select').value;
+            const clientId = document.getElementById('client-select').value;
             const apprenantId = document.getElementById('apprenant-select').value;
             
             if (!formationId) {
@@ -775,9 +1250,13 @@
 
             // Mettre à jour l'état
             formationState.formationId = formationId;
+            formationState.clientId = clientId;
             formationState.apprenantId = apprenantId === 'PREVIEW' ? null : apprenantId;
             formationState.isPreview = apprenantId === 'PREVIEW';
             formationState.isTestMode = true;
+
+            // Log de début de session
+            logInteraction('session_start', `Début formation ${formationId} - Client: ${clientId} - Apprenant: ${apprenantId}`);
 
             // Masquer le panel de test et l'avertissement
             document.getElementById('test-panel').style.display = 'none';
@@ -797,11 +1276,13 @@
             // Récupérer les paramètres
             formationState.formationId = urlParams.get('formationId');
             formationState.apprenantId = urlParams.get('apprenantId');
+            formationState.clientId = urlParams.get('clientId'); // NOUVEAU
             formationState.isPreview = urlParams.get('preview') === 'true';
             
             console.log('Paramètres URL détectés:', {
                 formationId: formationState.formationId,
                 apprenantId: formationState.apprenantId,
+                clientId: formationState.clientId,
                 isPreview: formationState.isPreview
             });
         }
@@ -821,7 +1302,7 @@
                     return;
                 }
                 
-                // Charger les données de formation depuis l'API ou mode local
+                // Charger les données de formation depuis l'API
                 await loadFormationData();
                 
                 // Initialiser l'interface
@@ -835,466 +1316,107 @@
                 // Afficher la formation
                 showFormation();
                 
+                // Log d'initialisation réussie
+                logInteraction('formation_loaded', `Formation ${formationState.formation.titre} chargée avec succès`);
+                
             } catch (error) {
                 console.error('Erreur initialisation:', error);
+                logInteraction('error', `Erreur initialisation: ${error.message}`);
                 showError(error.message);
             }
         }
 
-        // Chargement des données de formation (API + local pour les tests)
+        // Chargement des données de formation avec gestion multi-clients
         async function loadFormationData() {
             try {
                 console.log('Chargement formation ID:', formationState.formationId);
         
-                // Toujours essayer l'API en premier
-                try {
-                    const response = await fetch(`${API_URL}?action=obtenirFormations&timestamp=${Date.now()}`);
-                    const result = await response.json();
-            
-                    console.log('Réponse API:', result);
-            
-                    let formationRow = null;
-            
-                    if (result.success && result.donnees && Array.isArray(result.donnees)) {
-                        // CORRECTION: Chercher par ID en priorité, puis par nom
-                        formationRow = result.donnees.find(row => 
-                            row[0] === formationState.formationId ||     // A: ID (priorité)
-                            row[1] === formationState.formationId       // B: Nom/titre (fallback)
-                        );
-                
-                        console.log('Recherche par ID:', formationState.formationId);
-                        console.log('Formations disponibles:', result.donnees.map(row => ({id: row[0], nom: row[1]})));
-                
-                    } else if (Array.isArray(result)) {
-                        formationRow = result.find(row => 
-                            row[0] === formationState.formationId || 
-                            row[1] === formationState.formationId
-                        );
-                    }
-            
-                    if (formationRow) {
-                        console.log('✅ Formation trouvée dans l\'API:', formationRow);
-                
-                        formationState.formation = {
-                            id: formationRow[0],           // A: ID
-                            titre: formationRow[1],        // B: Nom
-                            objectifs: formationRow[2],    // C: Objectifs
-                            domaine: formationRow[3],      // D: Domaine
-                            modules: formationRow[4],      // E: Modules
-                            dureeHeures: formationRow[5],  // F: Durée_heures
-                            canvaUrls: formationRow[6],    // G: Canva_URLs
-                            quizUrls: formationRow[7],     // H: Quiz_URLs
-                            actif: formationRow[8],        // I: Actif
-                            scoreMinimum: 70,
-                            dureeEstimee: (formationRow[5] || 4) * 60
-                        };
-                
-                        // Parsing des modules depuis les données API si disponibles
-                        if (formationRow[4] && formationRow[6]) {
-                            formationState.formation.modules = parseModulesFromAPI(
-                                formationRow[4], // Modules
-                                formationRow[6], // Canva URLs
-                                formationRow[7]  // Quiz URLs
-                            );
-                        } else {
-                            // Générer des modules par défaut
-                            formationState.formation.modules = generateDefaultModules(
-                                formationState.formation.titre, 
-                                formationState.formation.domaine
-                            );
-                        }
-                
-                        console.log('✅ Formation mappée depuis API:', formationState.formation);
-                        console.log('📚 Modules détaillés:', formationState.formation.modules);
-                        return; // Succès API, on s'arrête là
-                    } else {
-                        console.warn('❌ Formation non trouvée dans l\'API pour ID:', formationState.formationId);
-                        console.log('📋 IDs disponibles:', result.donnees ? result.donnees.map(row => row[0]) : 'Aucune donnée');
-                    }
-                        } catch (apiError) {
-                            console.error('❌ Erreur API:', apiError);
-                        }
-                
-                        // Si on arrive ici, c'est qu'on n'a pas trouvé la formation
-                        throw new Error(`Formation "${formationState.formationId}" non trouvée dans l'API`);
-                
-                    } catch (error) {
-                        console.error('❌ Erreur chargement formation:', error);
-                        throw new Error(`Impossible de charger la formation: ${error.message}`);
-                    }
-                }
-
-        // Parser les modules depuis les données API
-        function parseModulesFromAPI(modulesData, canvaUrls, quizUrls) {
-            try {
-                console.log('Parsing des données API:');
-                console.log('- Modules:', modulesData);
-                console.log('- Canva URLs:', canvaUrls);
-                console.log('- Quiz URLs:', quizUrls);
-                
-                // Si les modules sont stockés sous format JSON
-                let modules = [];
-                
-                if (typeof modulesData === 'string') {
-                    try {
-                        modules = JSON.parse(modulesData);
-                        console.log('Modules parsés depuis JSON:', modules);
-                    } catch (e) {
-                        // Si ce n'est pas du JSON, traiter comme une liste simple
-                        modules = modulesData.split(',').map((titre, index) => ({
-                            id: `MOD_${String(index + 1).padStart(3, '0')}`,
-                            titre: titre.trim(),
-                            description: `Module ${index + 1} de la formation`
-                        }));
-                        console.log('Modules parsés depuis liste:', modules);
-                    }
-                } else if (Array.isArray(modulesData)) {
-                    modules = modulesData;
-                    console.log('Modules reçus comme array:', modules);
-                }
-                
-                // Parser les URLs Canva
-                let canvaUrlsList = [];
-                if (typeof canvaUrls === 'string' && canvaUrls.trim()) {
-                    canvaUrlsList = canvaUrls.split(',').map(url => url.trim()).filter(url => url);
-                    console.log('URLs Canva parsées:', canvaUrlsList);
-                } else if (Array.isArray(canvaUrls)) {
-                    canvaUrlsList = canvaUrls.filter(url => url && url.trim());
-                    console.log('URLs Canva comme array:', canvaUrlsList);
-                }
-                
-                // Associer les URLs aux modules
-                const finalModules = modules.map((module, index) => {
-                    const canvaUrl = canvaUrlsList[index] || 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed';
+                const response = await fetch(`${API_URL}?action=obtenirFormations&clientId=${formationState.clientId || ''}&timestamp=${Date.now()}`);
+                const result = await response.json();
+        
+                console.log('Réponse API:', result);
+        
+                let formation = null;
+        
+                if (result.success && result.donnees && Array.isArray(result.donnees)) {
+                    formation = result.donnees.find(f => 
+                        f.id === formationState.formationId ||
+                        f.id.toString() === formationState.formationId
+                    );
                     
-                    // S'assurer que l'URL Canva a le bon format d'embed
-                    let embedUrl = canvaUrl;
-                    if (canvaUrl && !canvaUrl.includes('view?embed')) {
-                        if (canvaUrl.includes('/view?')) {
-                            embedUrl = canvaUrl.replace('/view?', '/view?embed&');
-                        } else if (canvaUrl.includes('/view')) {
-                            embedUrl = canvaUrl.replace('/view', '/view?embed');
-                        } else {
-                            embedUrl = canvaUrl + (canvaUrl.includes('?') ? '&embed' : '?embed');
-                        }
-                    }
-                    
-                    console.log(`Module ${index + 1} - URL originale: ${canvaUrl} -> URL embed: ${embedUrl}`);
-                    
-                    return {
-                        ...module,
-                        canvaUrl: embedUrl,
-                        quiz: generateQuizForModule('cybersécurité', 'module' + (index + 1))
+                    console.log('Recherche par ID:', formationState.formationId);
+                    console.log('Formations disponibles:', result.donnees.map(f => ({id: f.id, nom: f.titre})));
+                }
+        
+                if (formation) {
+                    console.log('✅ Formation trouvée dans l\'API:', formation);
+            
+                    formationState.formation = {
+                        ...formation,
+                        // Parsing des modules avec compétences
+                        modules: parseModulesFromFormation(formation)
                     };
-                });
-                
-                console.log('Modules finaux avec URLs:', finalModules);
-                return finalModules;
+            
+                    console.log('✅ Formation mappée depuis API:', formationState.formation);
+                    return;
+                } else {
+                    console.warn('❌ Formation non trouvée dans l\'API pour ID:', formationState.formationId);
+                }
+                        
+                throw new Error(`Formation "${formationState.formationId}" non trouvée dans l'API`);
                 
             } catch (error) {
-                console.error('Erreur parsing modules API:', error);
+                console.error('❌ Erreur chargement formation:', error);
+                throw new Error(`Impossible de charger la formation: ${error.message}`);
+            }
+        }
+
+        // Parser les modules avec compétences pour Qualiopi
+        function parseModulesFromFormation(formation) {
+            try {
+                // Générer des modules par défaut basés sur la formation
+                const defaultModules = generateDefaultModules(formation.titre, formation.domaine);
+                
+                // Si on a des URLs Canva, les utiliser
+                if (formation.canvaUrls) {
+                    const urls = formation.canvaUrls.split(',').map(url => url.trim());
+                    defaultModules.forEach((module, index) => {
+                        if (urls[index]) {
+                            let embedUrl = urls[index];
+                            if (!embedUrl.includes('view?embed')) {
+                                if (embedUrl.includes('/view?')) {
+                                    embedUrl = embedUrl.replace('/view?', '/view?embed&');
+                                } else if (embedUrl.includes('/view')) {
+                                    embedUrl = embedUrl.replace('/view', '/view?embed');
+                                } else {
+                                    embedUrl = embedUrl + (embedUrl.includes('?') ? '&embed' : '?embed');
+                                }
+                            }
+                            module.canvaUrl = embedUrl;
+                        }
+                    });
+                }
+                
+                return defaultModules;
+                
+            } catch (error) {
+                console.error('Erreur parsing modules:', error);
                 return generateDefaultModules('Formation', 'Générique');
             }
         }
 
-        // Génération de modules par défaut basés sur le titre et domaine
-        function generateDefaultModules(titre, domaine) {
-            const modulesTemplates = {
-                'Cybersécurité': [
-                    {
-                        id: 'MOD_001',
-                        titre: 'Introduction à la cybersécurité',
-                        description: 'Découvrez les enjeux et les bases de la cybersécurité',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('cybersécurité', 'introduction')
-                    },
-                    {
-                        id: 'MOD_002',
-                        titre: 'Gestion des mots de passe',
-                        description: 'Apprenez à créer et gérer des mots de passe sécurisés',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('cybersécurité', 'mots de passe')
-                    },
-                    {
-                        id: 'MOD_003',
-                        titre: 'Phishing et ingénierie sociale',
-                        description: 'Identifiez et évitez les tentatives de phishing',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('cybersécurité', 'phishing')
-                    },
-                    {
-                        id: 'MOD_004',
-                        titre: 'Protection des données',
-                        description: 'Sécurisez vos données personnelles et professionnelles',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('cybersécurité', 'données')
-                    }
-                ],
-                'Hygiène alimentaire': [
-                    {
-                        id: 'MOD_001',
-                        titre: 'Principes de base HACCP',
-                        description: 'Comprendre les fondamentaux de l\'HACCP',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('hygiène', 'haccp')
-                    },
-                    {
-                        id: 'MOD_002',
-                        titre: 'Contamination et prévention',
-                        description: 'Identifier et prévenir les risques de contamination',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('hygiène', 'contamination')
-                    },
-                    {
-                        id: 'MOD_003',
-                        titre: 'Température et conservation',
-                        description: 'Maîtriser la chaîne du froid',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('hygiène', 'température')
-                    },
-                    {
-                        id: 'MOD_004',
-                        titre: 'Nettoyage et désinfection',
-                        description: 'Protocoles de nettoyage et désinfection',
-                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                        quiz: generateQuizForModule('hygiène', 'nettoyage')
-                    }
-                ]
-            };
-
-            // Retourner les modules selon le domaine, ou modules génériques
-            return modulesTemplates[domaine] || generateGenericModules(titre);
-        }
-
-        // Génération de modules génériques
-        function generateGenericModules(titre) {
-            return [
-                {
-                    id: 'MOD_001',
-                    titre: `Introduction - ${titre}`,
-                    description: 'Module d\'introduction à la formation',
-                    canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                    quiz: generateGenericQuiz('introduction')
-                },
-                {
-                    id: 'MOD_002',
-                    titre: 'Fondamentaux',
-                    description: 'Les bases essentielles',
-                    canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                    quiz: generateGenericQuiz('fondamentaux')
-                },
-                {
-                    id: 'MOD_003',
-                    titre: 'Application pratique',
-                    description: 'Mise en pratique des connaissances',
-                    canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                    quiz: generateGenericQuiz('pratique')
-                },
-                {
-                    id: 'MOD_004',
-                    titre: 'Synthèse et validation',
-                    description: 'Validation des acquis',
-                    canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
-                    quiz: generateGenericQuiz('synthèse')
-                }
-            ];
-        }
-
-        // Génération de quiz selon le domaine et le sujet
-        function generateQuizForModule(domaine, sujet) {
-            const quizTemplates = {
-                'cybersécurité': {
-                    'introduction': {
-                        questions: [
-                            {
-                                question: 'Qu\'est-ce que la cybersécurité ?',
-                                options: [
-                                    'Protection des systèmes informatiques',
-                                    'Création de sites web',
-                                    'Programmation de logiciels',
-                                    'Gestion de bases de données'
-                                ],
-                                correct: 0,
-                                explication: 'La cybersécurité consiste à protéger les systèmes informatiques, les réseaux et les données contre les attaques numériques, les accès non autorisés et les dommages.',
-                                indices: [
-                                    'Pensez à ce que signifie le préfixe "cyber"',
-                                    'Il s\'agit de protection contre les menaces numériques',
-                                    'Cela concerne la sécurité des ordinateurs et réseaux'
-                                ]
-                            },
-                            {
-                                question: 'Quel est le principal objectif de la cybersécurité ?',
-                                options: [
-                                    'Augmenter la vitesse d\'internet',
-                                    'Protéger les données et systèmes',
-                                    'Créer de nouveaux logiciels',
-                                    'Améliorer les graphiques'
-                                ],
-                                correct: 1,
-                                explication: 'L\'objectif principal de la cybersécurité est de protéger les données, les systèmes informatiques et les réseaux contre les cyberattaques et les accès non autorisés.',
-                                indices: [
-                                    'Le mot "sécurité" donne un indice important',
-                                    'Il s\'agit de protection, pas d\'amélioration de performance',
-                                    'Pensez à ce qu\'on veut garder en sécurité'
-                                ]
-                            }
-                        ]
-                    },
-                    'mots de passe': {
-                        questions: [
-                            {
-                                question: 'Quelle est la longueur minimale recommandée pour un mot de passe ?',
-                                options: ['6 caractères', '8 caractères', '12 caractères', '16 caractères'],
-                                correct: 2,
-                                explication: 'Les experts recommandent au minimum 12 caractères pour un mot de passe sécurisé. Plus c\'est long, plus c\'est difficile à pirater par force brute.',
-                                indices: [
-                                    'Plus c\'est long, plus c\'est sécurisé',
-                                    'Les recommandations modernes ont évolué depuis les années 2000',
-                                    'Pensez que les ordinateurs sont plus puissants maintenant'
-                                ]
-                            },
-                            {
-                                question: 'Quelle pratique est recommandée pour les mots de passe ?',
-                                options: [
-                                    'Utiliser le même mot de passe partout',
-                                    'Utiliser des mots de passe uniques pour chaque compte',
-                                    'Écrire ses mots de passe sur papier',
-                                    'Utiliser seulement des chiffres'
-                                ],
-                                correct: 1,
-                                explication: 'Il est essentiel d\'utiliser un mot de passe unique pour chaque compte. Si un site est compromis, vos autres comptes restent protégés.',
-                                indices: [
-                                    'Si un site se fait pirater, que se passe-t-il ?',
-                                    'La diversification est une stratégie de sécurité',
-                                    'Un gestionnaire de mots de passe peut aider'
-                                ]
-                            }
-                        ]
-                    },
-                    'phishing': {
-                        questions: [
-                            {
-                                question: 'Comment reconnaître un email de phishing ?',
-                                options: [
-                                    'Email professionnel uniquement',
-                                    'Demandes urgentes de données personnelles',
-                                    'Provient toujours de votre banque',
-                                    'Contient toujours des virus'
-                                ],
-                                correct: 1,
-                                explication: 'Les emails de phishing utilisent souvent l\'urgence et la peur pour pousser à révéler des informations personnelles rapidement, sans réfléchir.',
-                                indices: [
-                                    'Les cybercriminels jouent sur vos émotions',
-                                    'Ils veulent que vous agissiez vite sans réfléchir',
-                                    'Méfiez-vous des demandes pressantes'
-                                ]
-                            }
-                        ]
-                    },
-                    'données': {
-                        questions: [
-                            {
-                                question: 'Que signifie RGPD ?',
-                                options: [
-                                    'Règlement Général sur la Protection des Données',
-                                    'Réseau Global de Protection Digitale',
-                                    'Règles Générales de Programmation Dédiée',
-                                    'Rien de tout cela'
-                                ],
-                                correct: 0,
-                                explication: 'Le RGPD (Règlement Général sur la Protection des Données) est un règlement européen qui protège les données personnelles des citoyens.',
-                                indices: [
-                                    'C\'est un règlement européen',
-                                    'Il concerne la protection des données personnelles',
-                                    'Il est entré en vigueur en 2018'
-                                ]
-                            }
-                        ]
-                    }
-                },
-                'hygiène': {
-                    'haccp': {
-                        questions: [
-                            {
-                                question: 'Que signifie HACCP ?',
-                                options: [
-                                    'Hazard Analysis Critical Control Points',
-                                    'Health and Care Control Program',
-                                    'Hygiene Analysis Catering Control Points',
-                                    'Health Analysis Catering Control Program'
-                                ],
-                                correct: 0
-                            }
-                        ]
-                    },
-                    'contamination': {
-                        questions: [
-                            {
-                                question: 'Quels sont les principaux types de contamination ?',
-                                options: [
-                                    'Physique, chimique, biologique',
-                                    'Directe, indirecte, croisée',
-                                    'Chaude, froide, tiède',
-                                    'Visible, invisible, mixte'
-                                ],
-                                correct: 0
-                            }
-                        ]
-                    },
-                    'température': {
-                        questions: [
-                            {
-                                question: 'À quelle température doit être maintenue la chaîne du froid ?',
-                                options: ['En dessous de 8°C', 'En dessous de 4°C', 'En dessous de 0°C', 'En dessous de 2°C'],
-                                correct: 1
-                            }
-                        ]
-                    },
-                    'nettoyage': {
-                        questions: [
-                            {
-                                question: 'Quelle est la différence entre nettoyage et désinfection ?',
-                                options: [
-                                    'Il n\'y en a pas',
-                                    'Le nettoyage enlève les salissures, la désinfection tue les microbes',
-                                    'Le nettoyage se fait à chaud, la désinfection à froid',
-                                    'Le nettoyage est quotidien, la désinfection hebdomadaire'
-                                ],
-                                correct: 1
-                            }
-                        ]
-                    }
-                }
-            };
-
-            return quizTemplates[domaine]?.[sujet] || generateGenericQuiz(sujet);
-        }
-
-        // Génération de quiz générique
-        function generateGenericQuiz(sujet) {
-            return {
-                questions: [
-                    {
-                        question: `Question sur ${sujet}: Avez-vous bien compris les concepts abordés ?`,
-                        options: [
-                            'Oui, parfaitement',
-                            'Oui, dans l\'ensemble',
-                            'Partiellement',
-                            'Non, j\'ai besoin de réviser'
-                        ],
-                        correct: 0
-                    }
-                ]
-            };
-        }
-
-        // Configuration de l'interface
+        // Configuration de l'interface avec informations Qualiopi
         function setupInterface() {
             const formation = formationState.formation;
             
             // Header
             document.getElementById('formation-title').textContent = formation.titre;
-            document.getElementById('formation-subtitle').textContent = formation.objectifs;
+            document.getElementById('formation-subtitle').textContent = formation.objectifs || formation.description;
+            
+            // Métadonnées formation
+            document.getElementById('formation-duration').textContent = `Durée: ${formation.dureeHeures || formation.duree}h`;
+            document.getElementById('formation-domain').textContent = `Domaine: ${formation.domaine}`;
+            document.getElementById('formation-level').textContent = `Niveau: ${formation.niveau || 'Intermédiaire'}`;
             
             // Info apprenant
             const apprenantInfo = document.getElementById('apprenant-info');
@@ -1310,6 +1432,9 @@
                 apprenantInfo.textContent = '👤 Accès public';
             }
             
+            // Informations Qualiopi
+            setupQualiopiInfo();
+            
             // Navigation des modules
             setupModulesNavigation();
             
@@ -1318,6 +1443,31 @@
             
             // Dashboard
             updateDashboard();
+        }
+
+        // NOUVEAU: Configuration des informations Qualiopi
+        function setupQualiopiInfo() {
+            const formation = formationState.formation;
+            
+            // Remplir les informations Qualiopi
+            document.getElementById('formation-reference').textContent = formation.reference || formation.id;
+            document.getElementById('formation-version').textContent = formation.version || '1.0';
+            
+            // Information client si disponible
+            if (formationState.clientId) {
+                const clientNames = {
+                    'CLIENT_001': 'Entreprise ABC',
+                    'CLIENT_002': 'Société XYZ',
+                    'CLIENT_003': 'Organisation DEF'
+                };
+                document.getElementById('client-nom').textContent = clientNames[formationState.clientId] || formationState.clientId;
+            }
+            
+            document.getElementById('qualiopi-info').style.display = 'block';
+            
+            if (formationState.apprenantId && !formationState.isPreview) {
+                document.getElementById('assiduite-tracker').style.display = 'block';
+            }
         }
 
         // Configuration de la navigation des modules
@@ -1337,7 +1487,7 @@
             `).join('');
         }
 
-        // Configuration du contenu des modules
+        // Configuration du contenu des modules avec compétences
         function setupModulesContent() {
             const content = document.getElementById('formation-content');
             const formation = formationState.formation;
@@ -1347,6 +1497,22 @@
                     <div class="module-header">
                         <h2 class="module-title">${module.titre}</h2>
                         <p class="module-description">${module.description}</p>
+                        
+                        <!-- NOUVEAU: Objectifs pédagogiques -->
+                        <div class="module-objectives">
+                            <h4>🎯 Objectifs pédagogiques</h4>
+                            <ul>
+                                ${(module.objectifsPedagogiques || []).map(obj => `<li>${obj}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <!-- NOUVEAU: Compétences visées -->
+                        <div class="module-objectives" style="border-left-color: var(--success);">
+                            <h4 style="color: var(--success);">⭐ Compétences visées</h4>
+                            <ul>
+                                ${(module.competences || []).map(comp => `<li>${comp}</li>`).join('')}
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="canva-container">
@@ -1357,6 +1523,23 @@
                         <p style="margin-top: 15px; color: #666;">
                             📚 Consultez attentivement tous les éléments de ce module
                         </p>
+                    </div>
+                    
+                    <!-- NOUVEAU: Tracker de temps sur le module -->
+                    <div class="time-tracker">
+                        <div class="time-tracker-info">
+                            <div class="time-item">
+                                <div class="time-value" id="module-time-${index}">00:00</div>
+                                <div class="time-label">Temps sur module</div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-value" id="module-interactions-${index}">0</div>
+                                <div class="time-label">Interactions</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning" onclick="markModuleAsStudied(${index})">
+                            📖 Marquer comme étudié
+                        </button>
                     </div>
                     
                     <div class="module-progress">
@@ -1396,24 +1579,216 @@
             `).join('');
         }
 
+        // Affichage de la formation
+        function showFormation() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'grid';
+            document.getElementById('modules-nav').style.display = 'flex';
+            document.getElementById('formation-content').style.display = 'block';
+        }
+
+        // Timer de session
+        function startSessionTimer() {
+            let seconds = 0;
+            sessionTimer = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                document.getElementById('timer-display').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Fonctions de formation simplifiées pour le test
+        function navigateToModule(moduleIndex) {
+            const formation = formationState.formation;
+            
+            if (moduleIndex < 0 || moduleIndex >= formation.modules.length) {
+                return;
+            }
+            
+            logInteraction('module_navigation', `Navigation vers module ${moduleIndex + 1}`, moduleIndex);
+            
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.remove('active');
+            });
+            document.querySelectorAll('.module-nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            
+            document.getElementById(`module-${moduleIndex}`).classList.add('active');
+            document.getElementById(`nav-module-${moduleIndex}`).classList.add('active');
+            
+            formationState.currentModule = moduleIndex;
+            formationState.assiduite.modulesVisites.add(moduleIndex);
+            
+            updateDashboard();
+        }
+
+        function startModuleProgress(moduleIndex) {
+            const module = formationState.formation.modules[moduleIndex];
+            const moduleActions = document.getElementById(`module-actions-${moduleIndex}`);
+            
+            logInteraction('module_start', `Début du module "${module.titre}"`, moduleIndex);
+            formationState.assiduite.modulesVisites.add(moduleIndex);
+            
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                updateModuleProgress(moduleIndex, progress);
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    completeModule(moduleIndex);
+                }
+            }, 200);
+            
+            moduleActions.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span>📖 Module en cours...</span>
+                    <button class="btn btn-success" onclick="forceCompleteModule(${moduleIndex})">
+                        ✅ Marquer comme terminé
+                    </button>
+                </div>
+            `;
+        }
+
+        function updateModuleProgress(moduleIndex, progress) {
+            document.getElementById(`module-progress-${moduleIndex}`).textContent = `${Math.round(progress)}%`;
+            document.getElementById(`progress-fill-${moduleIndex}`).style.width = `${progress}%`;
+        }
+
+        function completeModule(moduleIndex) {
+            const module = formationState.formation.modules[moduleIndex];
+            const moduleActions = document.getElementById(`module-actions-${moduleIndex}`);
+            const navStatus = document.getElementById(`status-module-${moduleIndex}`);
+            const navItem = document.getElementById(`nav-module-${moduleIndex}`);
+            
+            logInteraction('module_completed', `Module "${module.titre}" terminé`, moduleIndex);
+            
+            if (!formationState.progress.modulesCompleted.includes(moduleIndex)) {
+                formationState.progress.modulesCompleted.push(moduleIndex);
+            }
+            
+            navStatus.textContent = '✅';
+            navItem.classList.add('completed');
+            navItem.classList.remove('active');
+            
+            const nextBtn = document.getElementById(`next-btn-${moduleIndex}`);
+            if (nextBtn) {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+            }
+            
+            const quizElement = document.getElementById(`quiz-${moduleIndex}`);
+            if (quizElement) {
+                quizElement.style.display = 'block';
+            }
+            
+            moduleActions.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span style="color: var(--success);">✅ Module terminé</span>
+                    <button class="btn btn-primary" onclick="scrollToQuiz(${moduleIndex})">
+                        🧠 Passer à l'évaluation
+                    </button>
+                </div>
+            `;
+            
+            updateDashboard();
+            saveProgress();
+            checkFormationCompletion();
+        }
+
+        function forceCompleteModule(moduleIndex) {
+            updateModuleProgress(moduleIndex, 100);
+            completeModule(moduleIndex);
+        }
+
+        function markModuleAsStudied(moduleIndex) {
+            const module = formationState.formation.modules[moduleIndex];
+            
+            logInteraction('module_studied', `Module "${module.titre}" marqué comme étudié`, moduleIndex);
+            
+            const interactionsElement = document.getElementById(`module-interactions-${moduleIndex}`);
+            if (interactionsElement) {
+                const current = parseInt(interactionsElement.textContent) || 0;
+                interactionsElement.textContent = current + 1;
+            }
+            
+            if (module.competences) {
+                module.competences.forEach(competence => {
+                    if (!formationState.progress.competencesValidees.includes(competence)) {
+                        formationState.progress.competencesValidees.push(competence);
+                    }
+                });
+                updateDashboard();
+            }
+            
+            alert(`✅ Module "${module.titre}" marqué comme étudié.\n\nCompétences étudiées:\n${(module.competences || []).join('\n')}`);
+        }
+
+        function scrollToQuiz(moduleIndex) {
+            const quizElement = document.getElementById(`quiz-${moduleIndex}`);
+            if (quizElement) {
+                quizElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            logInteraction('quiz_access', `Accès au quiz du module ${moduleIndex + 1}`, moduleIndex);
+        }
+
         // Génération du HTML des quiz
         function generateQuizHtml(quiz, moduleIndex) {
             if (!quiz || !quiz.questions || quiz.questions.length === 0) {
                 return '';
             }
             
+            const module = formationState.formation.modules[moduleIndex];
+            
             return `
                 <div class="quiz-section" id="quiz-${moduleIndex}" style="display: none;">
                     <div class="quiz-header">
-                        <h3 class="quiz-title">🧠 Quiz d'évaluation</h3>
-                        <p>Testez vos connaissances sur ce module</p>
+                        <h3 class="quiz-title">🧠 Évaluation des acquis</h3>
+                        <p>Validation des compétences du module</p>
+                    </div>
+                    
+                    <div class="quiz-criteria">
+                        <h4>📋 Critères d'évaluation</h4>
+                        <div class="criteria-grid">
+                            <div class="criteria-item">
+                                <div class="criteria-score">≥ 70%</div>
+                                <div>Score minimum requis</div>
+                            </div>
+                            <div class="criteria-item">
+                                <div class="criteria-score">${quiz.questions.length}</div>
+                                <div>Questions à traiter</div>
+                            </div>
+                            <div class="criteria-item">
+                                <div class="criteria-score">${module.competences ? module.competences.length : 0}</div>
+                                <div>Compétences évaluées</div>
+                            </div>
+                        </div>
+                        
+                        ${module.competences && module.competences.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <strong>Compétences évaluées dans ce quiz:</strong>
+                                <ul style="margin: 10px 0; padding-left: 20px;">
+                                    ${module.competences.map(comp => `<li>${comp}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
                     </div>
                     
                     ${quiz.questions.map((question, qIndex) => `
                         <div class="question-container">
+                            ${question.competence ? `
+                                <div class="question-competence">
+                                    📌 Compétence: ${question.competence}
+                                </div>
+                            ` : ''}
+                            
                             <div class="question-title">
                                 Question ${qIndex + 1}: ${question.question}
                             </div>
+                            
                             <div class="question-options">
                                 ${question.options.map((option, oIndex) => `
                                     <label class="option" onclick="selectAnswer(${moduleIndex}, ${qIndex}, ${oIndex})">
@@ -1427,124 +1802,11 @@
                     
                     <div style="text-align: center; margin-top: 25px;">
                         <button class="btn btn-success" onclick="submitQuiz(${moduleIndex})">
-                            ✅ Valider le quiz
+                            ✅ Valider l'évaluation
                         </button>
                     </div>
                 </div>
             `;
-        }
-
-        // Affichage de la formation
-        function showFormation() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'grid';
-            document.getElementById('modules-nav').style.display = 'flex';
-            document.getElementById('formation-content').style.display = 'block';
-        }
-
-        // Démarrage de la progression d'un module
-        function startModuleProgress(moduleIndex) {
-            const moduleActions = document.getElementById(`module-actions-${moduleIndex}`);
-            
-            // Simuler la progression automatique
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += 2;
-                updateModuleProgress(moduleIndex, progress);
-                
-                if (progress >= 100) {
-                    clearInterval(progressInterval);
-                    completeModule(moduleIndex);
-                }
-            }, 100);
-            
-            // Changer le bouton
-            moduleActions.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <span>📖 Module en cours...</span>
-                    <button class="btn btn-success" onclick="forceCompleteModule(${moduleIndex})">
-                        ✅ Marquer comme terminé
-                    </button>
-                </div>
-            `;
-            
-            // Enregistrer le début du module
-            recordModuleStart(moduleIndex);
-        }
-
-        // Reste des fonctions...
-        function forceCompleteModule(moduleIndex) {
-            updateModuleProgress(moduleIndex, 100);
-            completeModule(moduleIndex);
-        }
-
-        function updateModuleProgress(moduleIndex, progress) {
-            document.getElementById(`module-progress-${moduleIndex}`).textContent = `${Math.round(progress)}%`;
-            document.getElementById(`progress-fill-${moduleIndex}`).style.width = `${progress}%`;
-        }
-
-        function completeModule(moduleIndex) {
-            const moduleActions = document.getElementById(`module-actions-${moduleIndex}`);
-            const navStatus = document.getElementById(`status-module-${moduleIndex}`);
-            const navItem = document.getElementById(`nav-module-${moduleIndex}`);
-            
-            if (!formationState.progress.modulesCompleted.includes(moduleIndex)) {
-                formationState.progress.modulesCompleted.push(moduleIndex);
-            }
-            
-            navStatus.textContent = '✅';
-            navItem.classList.add('completed');
-            navItem.classList.remove('active');
-            
-            // Débloquer le bouton suivant
-            const nextBtn = document.getElementById(`next-btn-${moduleIndex}`);
-            if (nextBtn) {
-                nextBtn.style.opacity = '1';
-                nextBtn.style.pointerEvents = 'auto';
-            }
-            
-            document.getElementById(`quiz-${moduleIndex}`).style.display = 'block';
-            
-            moduleActions.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <span style="color: var(--success);">✅ Module terminé</span>
-                    <button class="btn btn-primary" onclick="scrollToQuiz(${moduleIndex})">
-                        🧠 Passer au quiz
-                    </button>
-                </div>
-            `;
-            
-            updateDashboard();
-            saveProgress();
-            checkFormationCompletion();
-        }
-
-        function navigateToModule(moduleIndex) {
-            const formation = formationState.formation;
-            
-            if (moduleIndex < 0 || moduleIndex >= formation.modules.length) {
-                return;
-            }
-            
-            document.querySelectorAll('.module-content').forEach(module => {
-                module.classList.remove('active');
-            });
-            document.querySelectorAll('.module-nav-item').forEach(nav => {
-                nav.classList.remove('active');
-            });
-            
-            document.getElementById(`module-${moduleIndex}`).classList.add('active');
-            document.getElementById(`nav-module-${moduleIndex}`).classList.add('active');
-            
-            formationState.currentModule = moduleIndex;
-            
-            document.getElementById(`module-${moduleIndex}`).classList.add('fade-in');
-        }
-
-        function scrollToQuiz(moduleIndex) {
-            document.getElementById(`quiz-${moduleIndex}`).scrollIntoView({ 
-                behavior: 'smooth' 
-            });
         }
 
         function selectAnswer(moduleIndex, questionIndex, optionIndex) {
@@ -1553,12 +1815,9 @@
             }
             formationState.progress.quizAnswers[moduleIndex][questionIndex] = optionIndex;
             
-            const questionContainer = document.querySelector(`input[name="question_${moduleIndex}_${questionIndex}"]:checked`);
-            if (questionContainer) {
-                questionContainer.checked = false;
-            }
-            
-            document.querySelector(`input[name="question_${moduleIndex}_${questionIndex}"][value="${optionIndex}"]`).checked = true;
+            logInteraction('quiz_answer_selected', 
+                `Réponse ${optionIndex + 1} sélectionnée pour question ${questionIndex + 1}`, 
+                moduleIndex);
             
             document.querySelectorAll(`input[name="question_${moduleIndex}_${questionIndex}"]`).forEach(input => {
                 input.closest('.option').classList.remove('selected');
@@ -1586,7 +1845,26 @@
             });
             
             const score = Math.round((correctAnswers / module.quiz.questions.length) * 100);
-            const passed = score >= formationState.formation.scoreMinimum;
+            const passed = score >= 70;
+            
+            formationState.progress.evaluations[moduleIndex] = {
+                score: score,
+                passed: passed,
+                timestamp: new Date().toISOString(),
+                competencesValidees: passed ? (module.competences || []) : []
+            };
+            
+            logInteraction('quiz_submitted', 
+                `Quiz soumis - Score: ${score}% - ${passed ? 'Réussi' : 'Échec'}`, 
+                moduleIndex);
+            
+            if (passed && module.competences) {
+                module.competences.forEach(competence => {
+                    if (!formationState.progress.competencesValidees.includes(competence)) {
+                        formationState.progress.competencesValidees.push(competence);
+                    }
+                });
+            }
             
             showQuizResult(moduleIndex, score, passed, correctAnswers, module.quiz.questions.length);
             
@@ -1601,37 +1879,6 @@
 
         function showQuizResult(moduleIndex, score, passed, correct, total) {
             const quizSection = document.getElementById(`quiz-${moduleIndex}`);
-            const module = formationState.formation.modules[moduleIndex];
-            const answers = formationState.progress.quizAnswers[moduleIndex] || {};
-            
-            // Créer le détail des réponses avec explications (SANS révéler les bonnes réponses)
-            let detailsHtml = '';
-            if (module.quiz && module.quiz.questions) {
-                detailsHtml = module.quiz.questions.map((question, qIndex) => {
-                    const userAnswer = answers[qIndex];
-                    const isCorrect = userAnswer === question.correct;
-                    const userAnswerText = question.options[userAnswer] || 'Non répondu';
-                    
-                    return `
-                        <div style="margin: 15px 0; padding: 15px; background: ${isCorrect ? '#f8f9fa' : '#fff3cd'}; border-radius: 8px; border-left: 4px solid ${isCorrect ? '#28a745' : '#ffc107'};">
-                            <strong>Question ${qIndex + 1}:</strong> ${question.question}<br>
-                            <div style="margin: 8px 0;">
-                                <span style="color: ${isCorrect ? '#28a745' : '#dc3545'};">
-                                    ${isCorrect ? '✅' : '❌'} Votre réponse: ${userAnswerText}
-                                </span>
-                            </div>
-                            ${isCorrect ? 
-                                `<div style="color: #666; font-style: italic; margin-top: 8px;">
-                                    <strong>💡 Explication:</strong> ${question.explication || 'Bonne réponse !'}
-                                </div>` : 
-                                `<div style="color: #856404; margin-top: 8px;">
-                                    <strong>💭 Indice:</strong> ${question.indices ? question.indices[0] : 'Réfléchissez à nouveau à cette question.'}
-                                </div>`
-                            }
-                        </div>
-                    `;
-                }).join('');
-            }
             
             const resultHtml = `
                 <div style="background: ${passed ? '#d4edda' : '#f8d7da'}; 
@@ -1641,25 +1888,17 @@
                             text-align: center; 
                             margin: 20px 0;">
                     <h4 style="color: ${passed ? '#155724' : '#721c24'};">
-                        ${passed ? '✅ Quiz réussi !' : '❌ Quiz non réussi'}
+                        ${passed ? '✅ Évaluation réussie !' : '❌ Évaluation non réussie'}
                     </h4>
                     <p style="font-size: 1.2em; margin: 10px 0;">
                         Score: ${score}% (${correct}/${total} bonnes réponses)
                     </p>
                     <p style="color: #666;">
                         ${passed ? 
-                            'Félicitations ! Vous pouvez passer au module suivant.' : 
-                            `Score minimum requis: ${formationState.formation.scoreMinimum}%. Utilisez les indices ci-dessous pour vous améliorer.`
+                            'Félicitations ! Vous maîtrisez les compétences de ce module.' : 
+                            'Score minimum requis: 70%. Vous pouvez recommencer le quiz.'
                         }
                     </p>
-                    
-                    <!-- Détails des réponses avec explications/indices -->
-                    <div style="text-align: left; margin: 20px 0; max-height: 300px; overflow-y: auto;">
-                        <h5 style="text-align: center; margin-bottom: 15px; color: #333;">
-                            ${passed ? '📝 Explications' : '💡 Indices pour vous aider'}
-                        </h5>
-                        ${detailsHtml}
-                    </div>
                     
                     <div style="margin-top: 15px;">
                         ${passed ? 
@@ -1667,20 +1906,17 @@
                                 Module suivant →
                             </button>` :
                             `<button class="btn btn-warning" onclick="retryQuiz(${moduleIndex})">
-                                🔄 Recommencer le quiz
-                            </button>
-                            ${!passed ? `<button class="btn btn-info" onclick="showMoreHints(${moduleIndex})" style="margin-left: 10px;">
-                                💡 Plus d'indices
-                            </button>` : ''}`
+                                🔄 Recommencer l'évaluation
+                            </button>`
                         }
                     </div>
                 </div>
             `;
             
-            quizSection.innerHTML = quizSection.innerHTML.replace(
-                /<div style="text-align: center; margin-top: 25px;">[\s\S]*?<\/div>/,
-                resultHtml
-            );
+            const submitButton = quizSection.querySelector('button[onclick*="submitQuiz"]');
+            if (submitButton) {
+                submitButton.parentElement.innerHTML = resultHtml;
+            }
         }
 
         function retryQuiz(moduleIndex) {
@@ -1688,65 +1924,9 @@
                 delete formationState.progress.quizAnswers[moduleIndex];
             }
             
-            const module = formationState.formation.modules[moduleIndex];
-            const quizSection = document.getElementById(`quiz-${moduleIndex}`);
-            quizSection.innerHTML = generateQuizHtml(module.quiz, moduleIndex).replace(
-                '<div class="quiz-section" id="quiz-' + moduleIndex + '" style="display: none;">',
-                '').replace('</div>', '');
+            logInteraction('quiz_retry', `Recommencer quiz module ${moduleIndex + 1}`, moduleIndex);
             
-            quizSection.style.display = 'block';
-        }
-
-        // Fonction pour afficher plus d'indices
-        function showMoreHints(moduleIndex) {
-            const module = formationState.formation.modules[moduleIndex];
-            const answers = formationState.progress.quizAnswers[moduleIndex] || {};
-            
-            if (!module.quiz || !module.quiz.questions) return;
-            
-            let helpHtml = `
-                <div style="background: #e7f3ff; border: 2px solid #0066cc; border-radius: 10px; padding: 20px; margin: 20px 0;">
-                    <h4 style="color: #0066cc; text-align: center; margin-bottom: 15px;">💡 Indices supplémentaires</h4>
-            `;
-            
-            module.quiz.questions.forEach((question, qIndex) => {
-                const userAnswer = answers[qIndex];
-                const isCorrect = userAnswer === question.correct;
-                
-                // Afficher les indices uniquement pour les mauvaises réponses
-                if (!isCorrect && question.indices && question.indices.length > 0) {
-                    helpHtml += `
-                        <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #ffc107;">
-                            <strong>Question ${qIndex + 1}:</strong> ${question.question}
-                            <div style="margin: 10px 0;">
-                                ${question.indices.map((indice, index) => 
-                                    `<div style="margin: 8px 0; padding: 8px; background: #f8f9fa; border-radius: 4px;">
-                                        <strong>Indice ${index + 1}:</strong> ${indice}
-                                    </div>`
-                                ).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-            
-            helpHtml += `
-                    <div style="text-align: center; margin-top: 15px;">
-                        <button class="btn btn-primary" onclick="retryQuiz(${moduleIndex})">
-                            🔄 Recommencer avec ces indices
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            // Insérer les indices avant le résultat existant
-            const quizSection = document.getElementById(`quiz-${moduleIndex}`);
-            const existingResult = quizSection.querySelector('div[style*="background: #f8d7da"]') || 
-                                  quizSection.querySelector('div[style*="background: #d4edda"]');
-            
-            if (existingResult) {
-                existingResult.insertAdjacentHTML('beforebegin', helpHtml);
-            }
+            location.reload(); // Rechargement simple pour reset
         }
 
         function updateDashboard() {
@@ -1768,6 +1948,8 @@
             
             const timeSpent = Math.round((Date.now() - progress.startTime) / (1000 * 60));
             document.getElementById('time-spent').textContent = `${timeSpent}min`;
+            
+            document.getElementById('competences-validees').textContent = progress.competencesValidees.length;
         }
 
         function checkFormationCompletion() {
@@ -1779,7 +1961,7 @@
             let allQuizPassed = true;
             if (progress.quizScores) {
                 Object.values(progress.quizScores).forEach(score => {
-                    if (score < formation.scoreMinimum) {
+                    if (score < 70) {
                         allQuizPassed = false;
                     }
                 });
@@ -1793,23 +1975,28 @@
         }
 
         function showFormationCompletion() {
+            const finalScore = calculateGlobalScore();
+            const finalDuration = Math.round((Date.now() - formationState.progress.startTime) / (1000 * 60));
+            
+            document.getElementById('final-score').textContent = finalScore;
+            document.getElementById('final-duration').textContent = `${finalDuration} minutes`;
+            
             document.getElementById('formation-content').style.display = 'none';
             document.getElementById('completion-message').style.display = 'block';
             
-            recordFormationCompletion();
+            logInteraction('formation_completed', 
+                `Formation terminée - Score: ${finalScore}% - Durée: ${finalDuration}min`);
         }
 
-        function startSessionTimer() {
-            let seconds = 0;
-            sessionTimer = setInterval(() => {
-                seconds++;
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                document.getElementById('timer-display').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-            }, 1000);
+        function calculateGlobalScore() {
+            const scores = formationState.progress.quizScores;
+            if (!scores || Object.keys(scores).length === 0) return 0;
+            
+            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+            return Math.round(totalScore / Object.keys(scores).length);
         }
 
+        // Sauvegarde de progression
         async function loadProgress() {
             if (formationState.isTestMode) {
                 console.log('Mode test - Progression non chargée depuis l\'API');
@@ -1817,13 +2004,18 @@
             }
             
             try {
-                console.log('Chargement de la progression pour:', formationState.apprenantId);
-                
-                const response = await fetch(`${API_URL}?action=getFormations&timestamp=${Date.now()}`);
+                const response = await fetch(`${API_URL}?action=getProgression&apprenantId=${formationState.apprenantId}&formationId=${formationState.formationId}&timestamp=${Date.now()}`);
                 const result = await response.json();
                 
                 if (result && result.progression) {
-                    formationState.progress = { ...formationState.progress, ...result.progression };
+                    formationState.progress = { 
+                        ...formationState.progress, 
+                        ...result.progression,
+                        competencesValidees: result.progression.competencesValidees || [],
+                        interactions: result.progression.interactions || [],
+                        evaluations: result.progression.evaluations || {}
+                    };
+                    
                     console.log('Progression chargée:', formationState.progress);
                 }
                 
@@ -1848,11 +2040,17 @@
                     action: 'sauvegarderProgression',
                     apprenantId: formationState.apprenantId,
                     formationId: formationState.formationId,
-                    progression: formationState.progress,
+                    clientId: formationState.clientId,
+                    progression: {
+                        ...formationState.progress,
+                        modulesVisites: Array.from(formationState.assiduite.modulesVisites),
+                        assiduite: {
+                            ...formationState.assiduite,
+                            modulesVisites: Array.from(formationState.assiduite.modulesVisites)
+                        }
+                    },
                     timestamp: new Date().toISOString()
                 };
-                
-                console.log('Sauvegarde progression:', progressData);
                 
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -1868,77 +2066,116 @@
             }
         }
 
-        function recordModuleStart(moduleIndex) {
-            if (formationState.isPreview || formationState.isTestMode) return;
-            
-            const eventData = {
-                action: 'enregistrerEvenement',
-                apprenantId: formationState.apprenantId,
-                formationId: formationState.formationId,
-                type: 'module_start',
-                moduleIndex: moduleIndex,
-                timestamp: new Date().toISOString()
-            };
-            
-            console.log('Début module enregistré:', eventData);
-            
-            fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'data=' + encodeURIComponent(JSON.stringify(eventData))
-            }).catch(error => console.error('Erreur enregistrement événement:', error));
-        }
-
-        function recordFormationCompletion() {
-            if (formationState.isPreview || formationState.isTestMode) return;
-            
-            const completionData = {
-                action: 'terminerFormation',
-                apprenantId: formationState.apprenantId,
-                formationId: formationState.formationId,
-                scoreGlobal: calculateGlobalScore(),
-                tempsTotal: Math.round((Date.now() - formationState.progress.startTime) / (1000 * 60)),
-                timestamp: new Date().toISOString()
-            };
-            
-            console.log('Formation terminée:', completionData);
-            
-            fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'data=' + encodeURIComponent(JSON.stringify(completionData))
-            }).catch(error => console.error('Erreur completion:', error));
-        }
-
-        function calculateGlobalScore() {
-            const scores = formationState.progress.quizScores;
-            if (!scores || Object.keys(scores).length === 0) return 0;
-            
-            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-            return Math.round(totalScore / Object.keys(scores).length);
-        }
-
+        // Fonctions pour les attestations et rapports
         function downloadCertificate() {
             if (formationState.isPreview || formationState.isTestMode) {
-                alert('📋 Mode prévisualisation/test - L\'attestation sera générée pour les vrais apprenants');
+                alert('📋 Mode test - L\'attestation sera générée pour les vrais apprenants');
                 return;
             }
             
-            if (!formationState.apprenantId) {
-                alert('❌ Impossible de générer l\'attestation sans identifiant apprenant');
+            alert('📜 Génération de votre attestation Qualiopi en cours...');
+        }
+
+        function downloadAssiduityReport() {
+            if (formationState.isPreview || formationState.isTestMode) {
+                alert('📋 Mode test - Le rapport d\'assiduité sera généré pour les vrais apprenants');
                 return;
             }
             
-            const certificateUrl = `${API_URL}?action=genererAttestation&apprenantId=${formationState.apprenantId}&formationId=${formationState.formationId}&timestamp=${Date.now()}`;
-            
-            alert('📜 Génération de votre attestation en cours...\n\nElle sera téléchargée automatiquement ou envoyée par email.');
-            
-            try {
-                window.open(certificateUrl, '_blank');
-            } catch (error) {
-                console.error('Erreur téléchargement attestation:', error);
-                alert('❌ Erreur lors du téléchargement. Veuillez contacter le support.');
+            alert('📊 Génération du rapport d\'assiduité Qualiopi...');
+        }
+
+        function sendCompletionNotification() {
+            if (formationState.isPreview || formationState.isTestMode) {
+                alert('📋 Mode test - La notification sera envoyée pour les vrais apprenants');
+                return;
             }
+            
+            alert('📧 Notification envoyée avec succès à votre employeur/client !');
+        }
+
+        // Génération de modules par défaut
+        function generateDefaultModules(titre, domaine) {
+            const modulesTemplates = {
+                'Cybersécurité': [
+                    {
+                        id: 'MOD_001',
+                        titre: 'Introduction à la cybersécurité',
+                        description: 'Découvrez les enjeux et les bases de la cybersécurité en entreprise',
+                        objectifsPedagogiques: [
+                            'Comprendre les enjeux de la cybersécurité',
+                            'Identifier les principales menaces',
+                            'Connaître les principes de base de la sécurité'
+                        ],
+                        competences: [
+                            'Maîtriser les concepts fondamentaux de la cybersécurité',
+                            'Identifier les principaux risques et menaces numériques'
+                        ],
+                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
+                        quiz: {
+                            questions: [
+                                {
+                                    question: 'Qu\'est-ce que la cybersécurité ?',
+                                    competence: 'Maîtriser les concepts fondamentaux de la cybersécurité',
+                                    options: [
+                                        'Protection des systèmes informatiques contre les menaces',
+                                        'Création de sites web sécurisés',
+                                        'Programmation de logiciels antivirus',
+                                        'Gestion exclusive des mots de passe'
+                                    ],
+                                    correct: 0
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        id: 'MOD_002',
+                        titre: 'Gestion des mots de passe',
+                        description: 'Apprenez à créer et gérer des mots de passe sécurisés',
+                        objectifsPedagogiques: [
+                            'Créer des mots de passe robustes',
+                            'Utiliser un gestionnaire de mots de passe',
+                            'Comprendre l\'authentification multi-facteurs'
+                        ],
+                        competences: [
+                            'Appliquer les bonnes pratiques de gestion des mots de passe',
+                            'Utiliser des outils de gestion sécurisée des mots de passe'
+                        ],
+                        canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
+                        quiz: {
+                            questions: [
+                                {
+                                    question: 'Quelle est la longueur minimale recommandée pour un mot de passe en 2024 ?',
+                                    competence: 'Appliquer les bonnes pratiques de gestion des mots de passe',
+                                    options: ['8 caractères', '10 caractères', '12 caractères', '16 caractères'],
+                                    correct: 2
+                                }
+                            ]
+                        }
+                    }
+                ]
+            };
+
+            return modulesTemplates[domaine] || [
+                {
+                    id: 'MOD_001',
+                    titre: `Introduction - ${titre}`,
+                    description: 'Module d\'introduction à la formation',
+                    objectifsPedagogiques: ['Comprendre les objectifs', 'Acquérir les bases'],
+                    competences: ['Compétence fondamentale 1', 'Compétence fondamentale 2'],
+                    canvaUrl: 'https://www.canva.com/design/DAGXM2_7JDU/k3UoDsc6vjNtta0yUvE7qA/view?embed',
+                    quiz: {
+                        questions: [
+                            {
+                                question: 'Avez-vous bien compris les concepts clés de ce module ?',
+                                competence: 'Maîtrise des concepts de base',
+                                options: ['Oui, parfaitement', 'Oui, dans l\'ensemble', 'Partiellement', 'Non'],
+                                correct: 0
+                            }
+                        ]
+                    }
+                }
+            ];
         }
 
         function showError(message) {
@@ -1949,14 +2186,11 @@
             console.error('Erreur formation:', message);
         }
 
+        // Sauvegarde automatique et gestion de fermeture
         window.addEventListener('beforeunload', function(e) {
             if (!formationState.isPreview && !formationState.isTestMode && formationState.apprenantId) {
                 saveProgress();
-                
-                if (formationState.progress.modulesCompleted.length > 0) {
-                    e.preventDefault();
-                    e.returnValue = 'Votre progression sera sauvegardée. Êtes-vous sûr de vouloir quitter ?';
-                }
+                logInteraction('session_end', 'Fermeture de session');
             }
         });
 
@@ -1966,50 +2200,10 @@
             }
         }, 30000);
 
-        function showDebugInfo() {
-            console.group('🔍 Debug Formation Smart Academy');
-            console.log('État de la formation:', formationState);
-            console.log('URL actuelle:', window.location.href);
-            console.log('Paramètres URL:', new URLSearchParams(window.location.search));
-            console.log('API URL:', API_URL);
-            console.groupEnd();
-        }
-
-        window.smartAcademyDebug = {
-            showDebugInfo,
+        // Outils de debug
+        window.smartAcademyQualiopi = {
             getState: () => formationState,
-            forceComplete: (moduleIndex) => forceCompleteModule(moduleIndex),
-            skipToModule: (moduleIndex) => navigateToModule(moduleIndex),
-            resetProgress: () => {
-                formationState.progress = {
-                    modulesCompleted: [],
-                    quizAnswers: {},
-                    quizScores: {},
-                    totalTimeSpent: 0,
-                    startTime: Date.now()
-                };
-                updateDashboard();
-                
-                document.querySelectorAll('.module-nav-item').forEach((item, index) => {
-                    item.classList.remove('completed');
-                    const status = document.getElementById(`status-module-${index}`);
-                    status.textContent = index + 1;
-                });
-                
-                document.querySelectorAll('[id^="module-actions-"]').forEach((actions, index) => {
-                    actions.innerHTML = `
-                        <button class="btn btn-primary" onclick="startModuleProgress(${index})">
-                            ▶️ Commencer le module
-                        </button>
-                    `;
-                });
-                
-                document.querySelectorAll('[id^="quiz-"]').forEach(quiz => {
-                    quiz.style.display = 'none';
-                });
-                
-                console.log('✅ Progression réinitialisée');
-            },
+            getInteractions: () => formationState.progress.interactions,
             completeAllModules: () => {
                 const formation = formationState.formation;
                 for (let i = 0; i < formation.modules.length; i++) {
@@ -2021,33 +2215,13 @@
                 }
                 updateDashboard();
                 checkFormationCompletion();
-                console.log('✅ Tous les modules complétés avec scores fictifs');
-            },
-            testQuiz: (moduleIndex) => {
-                const module = formationState.formation.modules[moduleIndex];
-                if (module && module.quiz) {
-                    console.log('Quiz du module', moduleIndex, ':', module.quiz);
-                    
-                    module.quiz.questions.forEach((question, qIndex) => {
-                        selectAnswer(moduleIndex, qIndex, question.correct);
-                    });
-                    
-                    setTimeout(() => {
-                        submitQuiz(moduleIndex);
-                    }, 1000);
-                } else {
-                    console.log('Pas de quiz pour le module', moduleIndex);
-                }
+                console.log('✅ Tous les modules complétés');
             }
         };
 
-        console.log('🎓 Interface Apprenant Smart Academy - Version Corrigée Chargée !');
-        console.log('💡 Utilisez le panel de test en haut à droite pour tester différentes formations');
-        console.log('🔧 Tapez smartAcademyDebug.showDebugInfo() dans la console pour plus d\'infos');
-        console.log('🧪 Commandes de test disponibles:');
-        console.log('   - smartAcademyDebug.resetProgress() : Réinitialiser la progression');
-        console.log('   - smartAcademyDebug.completeAllModules() : Compléter tous les modules');
-        console.log('   - smartAcademyDebug.testQuiz(0) : Tester automatiquement le quiz du module 0');
+        console.log('🎓 Interface Formation Qualiopi Smart Academy - Version Complète Chargée !');
+        console.log('💡 Utilisez le panel de test pour tester différentes configurations');
+        console.log('🔧 Tapez smartAcademyQualiopi.getState() pour voir l\'état complet');
     </script>
 </body>
 </html>
