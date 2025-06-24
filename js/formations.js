@@ -186,6 +186,8 @@ const Formations = {
         } catch (error) {
             UI.showNotification('❌ Erreur : ' + error.message, 'error');
         }
+        
+        // Mettre à jour BPF après succès
         if (window.BPF && BPF.refreshStats) {
             BPF.refreshStats();
         }
@@ -622,6 +624,7 @@ const Formations = {
 
         } catch (error) {
             console.error('🔥 DEBUG - ERREUR dans try/catch:', error);
+        }
         if (window.BPF && BPF.refreshStats) {
             BPF.refreshStats();
         }
