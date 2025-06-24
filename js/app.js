@@ -80,8 +80,19 @@ const SmartAcademy = {
         await Formations.init();
 
         // 5. BPF - attendre que les formations soient chargées
-        BPF.init();
-        BPF.refreshStats();
+        if (typeof BPF !== 'undefined' && BPF.init) {
+            BPF.init();
+            BPF.refreshStats();
+        } else {
+            console.warn('⚠️ Module BPF non disponible');
+            // Essayer de l'initialiser plus tard
+            setTimeout(() => {
+                if (window.BPF) {
+                    BPF.init();
+                    BPF.refreshStats();
+                }
+            }, 500);
+        }
         
         // 5. Apprenants (synchrone - si disponible)
         if (Apprenants && Apprenants.init) {
