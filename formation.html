@@ -1016,6 +1016,10 @@
             console.log('🚀 Smart Academy - Démarrage...');
             SmartAcademy.init();
             initializeFormation();
+            startSessionTimer();
+            startAssiduiteTacking();
+            loadFormationsForTest();
+            setupActivityTracking();
         });
         
         // État global de la formation - AMÉLIORÉ POUR QUALIOPI
@@ -1052,20 +1056,11 @@
 
         // Timer de session
         let sessionTimer = null;
-        let assiduiteTi mer = null;
+        let assiduiteTimer = null;
 
         // NOUVEAU: Détection d'activité pour assiduité
         let lastActivity = Date.now();
         let inactivityThreshold = 5 * 60 * 1000; // 5 minutes
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeFormation();
-            startSessionTimer();
-            startAssiduiteTacking();
-            loadFormationsForTest();
-            setupActivityTracking();
-        });
 
         // NOUVEAU: Suivi d'activité pour Qualiopi
         function setupActivityTracking() {
@@ -1108,7 +1103,7 @@
 
         // NOUVEAU: Suivi d'assiduité
         function startAssiduiteTacking() {
-            assiduiteTi mer = setInterval(() => {
+            assiduiteTimer = setInterval(() => {
                 if (formationState.assiduite.isActive) {
                     formationState.assiduite.tempsActif += 1000; // +1 seconde
                 }
