@@ -67,6 +67,10 @@ const Formations = {
     async refresh() {
         await this.load();
         UI.showNotification('🔄 Formations actualisées', 'info');
+        // ✅ AJOUTER CETTE LIGNE ICI :
+        if (window.BPF && BPF.refreshStats) {
+            BPF.refreshStats();
+        }
     },
 
     /**
@@ -179,6 +183,9 @@ const Formations = {
             }
         } catch (error) {
             UI.showNotification('❌ Erreur : ' + error.message, 'error');
+        }
+        if (window.BPF && BPF.refreshStats) {
+            BPF.refreshStats();
         }
     },
 
@@ -613,6 +620,9 @@ const Formations = {
 
         } catch (error) {
             console.error('🔥 DEBUG - ERREUR dans try/catch:', error);
+        if (window.BPF && BPF.refreshStats) {
+            BPF.refreshStats();
+        }
 
             // Mise à jour locale en cas d'erreur API
             const formation = this.list.find(f => f.id === formationId);
@@ -680,6 +690,9 @@ const Formations = {
         } catch (error) {
             console.error('Erreur mise à jour statut:', error);
             UI.showNotification('❌ Erreur : ' + error.message, 'error');
+        }
+        if (window.BPF && BPF.refreshStats) {
+            BPF.refreshStats();
         }
     },
 
