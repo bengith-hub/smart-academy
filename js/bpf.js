@@ -205,3 +205,4 @@ refreshStats() {
 
 // Export du module
 window.BPF = BPF;
+console.log('✅ Module BPF chargé avec succès !');
