@@ -8,7 +8,7 @@ const Formations = {
     list: [],
     editingFormation: null,
 
-n    /**
+     /**
      * Initialise le module formations
      */
     async init() {
