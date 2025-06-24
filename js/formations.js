@@ -107,8 +107,8 @@ const Formations = {
                 <div class="formation-meta">
                     ${formation.domaine} • ${formation.dureeHeures}h • ${formation.tarifHT}€ HT • ${modulesCount} modules
                 </div>
-                <div class="formation-description">
-                    ${formation.objectifs}
+                <div class="formation-description" title="${formation.objectifs}">
+                    ${formation.objectifs.length > 120 ? formation.objectifs.substring(0, 120) + '...' : formation.objectifs}
                 </div>
                 <div class="formation-actions">
                     <button class="btn btn-primary" onclick="Formations.editComplete('${formation.id}')">
