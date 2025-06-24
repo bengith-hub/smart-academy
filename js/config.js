@@ -5,7 +5,7 @@
 
 const Config = {
     // URLs par défaut
-    DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbwhVCmRmivTCLO0Pk028WhHnJF64Gvai0WWAEN1EaC5l6dBOQ3XGPKrPjntpZJI8kTJ/exec',
+    DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbxlbkLkzypi_oKNIu_pt-9PqRO7x2ntW8NvyuHsfEOf7SLi_RcfrgmiVb_FSJmNMEWJ/exec',
     DEFAULT_FORMATION_URL: 'https://bengith-hub.github.io/smart-academy/formation.html',
     
     // Clés de stockage local
