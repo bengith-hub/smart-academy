@@ -242,26 +242,40 @@ const API = {
      * Met à jour une formation complète
      */
     async updateFormationComplete(formationId, formationData) {
-        console.log('🔍 DEBUG updateFormationComplete:');
-        console.log('  - formationId:', formationId);
-        console.log('  - formationData:', formationData);
+        try {
+            console.log('🔍 DEBUG updateFormationComplete:');
+            console.log('  - formationId:', formationId);
+            console.log('  - formationData:', formationData);
 
-        // Appel direct comme le test qui fonctionne
-        const response = await fetch(Config.current.apiUrl, {
-            method: 'POST',
-            body: JSON.stringify({
+            const requestData = {
                 action: 'modifierFormationComplete',
                 id: formationId,
                 ...formationData
-            })
-         });
+            };
 
-         if (!response.ok) {
-             throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
-         }
+            console.log('📤 Données à envoyer:', requestData);
 
-         return await response.json();
-     },
+            const response = await fetch(Config.current.apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `data=${encodeURIComponent(JSON.stringify(requestData))}`
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log('📥 Réponse reçue:', result);
+            return result;
+
+        } catch (error) {
+            console.error('❌ Erreur updateFormationComplete:', error);
+            return { success: false, error: error.message };
+        }
+    },
 
     /**
      * Met à jour le statut d'une formation
