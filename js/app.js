@@ -84,6 +84,8 @@ const SmartAcademy = {
             Apprenants.init();
         } else {
             console.warn('⚠️ Module Apprenants non disponible');
+        // 6. BPF
+        BPF.init();
         }
         console.log('✅ Modules initialisés');
     },
