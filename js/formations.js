@@ -322,7 +322,7 @@ const Formations = {
                     <h4>📚 Gestion des modules</h4>
                     <div class="modules-container">
                         <div id="modules-list">
-                            ${this.generateModulesHTML(formation.modules || [])}
+                            ${this.generateModulesHTML(this.editingFormation.modules || [])}
                         </div>
                         <button type="button" class="add-module-btn" onclick="Formations.addModule()">
                             ➕ Ajouter un module
