@@ -332,6 +332,14 @@ const API = {
             }
         ];
     }
+    /**
+     * Supprime une formation
+     */
+    async deleteFormation(formationId) {
+        return await this.call('supprimerFormation', {
+            formationId: formationId
+        });
+    },
 };
 
 // Fonction globale pour le test de connexion (appelée depuis l'HTML)
