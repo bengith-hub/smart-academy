@@ -8,7 +8,7 @@ const Formations = {
     list: [],
     editingFormation: null,
 
-    /**
+n    /**
      * Initialise le module formations
      */
     async init() {
@@ -727,7 +727,7 @@ const Formations = {
                 </p>
             </div>
         `);
-    }
+    },
     /**
      * Confirme la suppression d'une formation
      */
@@ -823,3 +823,5 @@ const Formations = {
 
 // Export du module
 window.Formations = Formations;
+// Export des méthodes pour l'HTML
+window.confirmDelete = (id) => Formations.confirmDelete(id);
