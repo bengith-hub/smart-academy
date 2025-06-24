@@ -1008,7 +1008,15 @@
 
     <script>
         // IMPORTANT: Remplacez cette URL par votre URL de déploiement Google Apps Script
-        const API_URL = Config.current.apiUrl;
+        let API_URL;
+        document.addEventListener('DOMContentLoaded', function() {
+            Config.init(); // Initialiser Config AVANT tout
+            API_URL = Config.current.apiUrl || Config.DEFAULT_API_URL; // PUIS assigner l'URL
+    
+            console.log('🚀 Smart Academy - Démarrage...');
+            SmartAcademy.init();
+            initializeFormation();
+        });
         
         // État global de la formation - AMÉLIORÉ POUR QUALIOPI
         let formationState = {
