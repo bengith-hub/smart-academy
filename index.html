@@ -730,10 +730,10 @@
             </div>
     
             <div style="margin: 20px 0; text-align: center;">
-                <button class="btn btn-primary" onclick="BPF.genererRapport()" style="margin-right: 10px;">
+                <button class="btn btn-primary" onclick="genererRapportBPF()" style="margin-right: 10px;">
                     📈 Générer rapport BPF annuel
                 </button>
-                <button class="btn btn-secondary" onclick="BPF.exporterDonnees()">
+                <button class="btn btn-secondary" onclick="exporterDonneesBPF()">
                     📊 Exporter données Excel
                 </button>
             </div>
@@ -865,6 +865,29 @@
             </div>
         `);
     }
+    /**
+    * Génère le rapport BPF de manière sécurisée
+    */
+    function genererRapportBPF() {
+        if (typeof BPF !== 'undefined' && BPF.genererRapport) {
+            BPF.genererRapport();
+        } else {
+            alert('⚠️ Module BPF non disponible. Veuillez rafraîchir la page.');
+            console.error('Module BPF non chargé');
+        }
+    }
+
+    /**
+    * Exporte les données BPF de manière sécurisée
+    */
+    function exporterDonneesBPF() {
+        if (typeof BPF !== 'undefined' && BPF.exporterDonnees) {
+            BPF.exporterDonnees();
+        } else {
+            alert('⚠️ Module BPF non disponible. Veuillez rafraîchir la page.');
+            console.error('Module BPF non chargé');
+        }
+    }   
     </script>
  </body>   
  </html>
