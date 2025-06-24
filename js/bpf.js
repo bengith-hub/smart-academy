@@ -9,6 +9,7 @@ const BPF = {
      */
     init() {
         console.log('📊 Initialisation du module BPF...');
+},
 /**
  * Actualise les statistiques quand les formations sont chargées
  */
