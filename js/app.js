@@ -43,13 +43,30 @@ const SmartAcademy = {
      * Vérifie que tous les modules requis sont chargés
      */
     checkModules() {
-        const requiredModules = ['Config', 'API', 'UI', 'Formations', 'Apprenants'];
+        const requiredModules = ['Config', 'API', 'UI', 'Formations'];
+        const optionalModules = ['Apprenants', 'BPF'];
         const missingModules = [];
+        // Charger les modules optionnels s'ils sont disponibles
+        optionalModules.forEach(moduleName => {
+            if (window[moduleName]) {
+                this.modules[moduleName] = window[moduleName];
+                console.log(`📦 Module optionnel ${moduleName} chargé`);
+            } else {
+                console.warn(`⚠️ Module optionnel ${moduleName} non disponible`);
+            }
+        });
+        
         
         requiredModules.forEach(moduleName => {
             if (!window[moduleName]) {
                 missingModules.push(moduleName);
             } else {
+                this.modules[moduleName] = window[moduleName];
+            }
+        });
+        // Charger les modules optionnels s'ils sont disponibles
+        optionalModules.forEach(moduleName => {
+            if (window[moduleName]) {
                 this.modules[moduleName] = window[moduleName];
             }
         });
@@ -210,7 +227,7 @@ const SmartAcademy = {
      * Affiche le message de bienvenue
      */
     showWelcomeMessage() {
-        // Vérifier si c'est la première visite
+    try {
         const hasVisited = localStorage.getItem('smart_academy_visited');
         
         if (!hasVisited) {
@@ -219,7 +236,13 @@ const SmartAcademy = {
                 localStorage.setItem('smart_academy_visited', 'true');
             }, 1000);
         }
-    },
+    } catch (error) {
+        console.warn('localStorage non disponible, ignoré');
+        // Afficher le message quand même
+        setTimeout(() => {
+            UI.showNotification(`🎓 Bienvenue dans Smart Academy v${this.version} !`, 'success');
+        }, 1000);
+    }
     
     /**
      * Obtient les informations système
