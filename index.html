@@ -214,12 +214,16 @@
             position: absolute;
             top: 50px;
             right: 15px;
-            background: #17a2b8;
+            background: linear-gradient(135deg, #17a2b8, #138496);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .formation-card:hover {
             transform: translateY(-5px);
@@ -566,9 +570,37 @@
         <!-- Onglet Rapports -->
         <div class="tab-content" id="rapports-content">
             <h2>📊 Rapports et BPF</h2>
-            <p>Interface de génération des rapports Qualiopi en développement...</p>
+    
+            <div class="stats-grid" style="margin-bottom: 30px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="formations-bpf">-</div>
+                    <div class="stat-label">Formations BPF</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="heures-bpf">-</div>
+                    <div class="stat-label">Heures BPF</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="ca-bpf">-</div>
+                    <div class="stat-label">CA BPF (€)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="domaines-bpf">-</div>
+                    <div class="stat-label">Domaines</div>
+                </div>
+            </div>
+    
+            <div style="margin: 20px 0; text-align: center;">
+                <button class="btn btn-primary" onclick="BPF.genererRapport()" style="margin-right: 10px;">
+                    📈 Générer rapport BPF annuel
+                </button>
+                <button class="btn btn-secondary" onclick="BPF.exporterDonnees()">
+                    📊 Exporter données Excel
+                </button>
+            </div>
+    
+            <div id="rapport-bpf" style="margin-top: 30px;"></div>
         </div>
-    </div>
 
     <!-- Modal et Notification -->
     <div class="modal" id="action-modal">
