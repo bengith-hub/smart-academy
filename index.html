@@ -670,7 +670,40 @@
         <!-- Onglet Apprenants -->
         <div class="tab-content" id="apprenants-content">
             <h2>👥 Gestion des Apprenants</h2>
-            <p>Interface de gestion des apprenants en développement...</p>
+            <div class="stats-grid" style="margin-bottom: 20px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-apprenants">-</div>
+                    <div class="stat-label">Total Apprenants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="apprenants-session">-</div>
+                    <div class="stat-label">En Formation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="liens-generes">-</div>
+                    <div class="stat-label">Liens Générés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="formations-terminees">-</div>
+                    <div class="stat-label">Terminées</div>
+                </div>
+            </div>
+    
+            <div style="margin-bottom: 20px; text-align: center;">
+                <button class="btn btn-primary" onclick="showApprenantsGlobal()">
+                    👥 Vue d'ensemble
+                </button>
+                <button class="btn btn-secondary" onclick="showSessionsManager()">
+                    📊 Gestion des sessions
+                </button>
+            </div>
+    
+            <div id="apprenants-container">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    <h3>👥 Gestion centralisée des apprenants</h3>
+                    <p>Sélectionnez une formation dans l'onglet Catalogue puis cliquez sur "👥 Apprenants" pour commencer.</p>
+                </div>
+            </div>
         </div>
 
         <!-- Onglet Rapports -->
@@ -756,6 +789,81 @@
             }
         }, 1000);
     }); 
+    </script> 
+    <!-- Fonctions globales pour l'interface Apprenants -->
+    <script>
+    /**
+     * Affiche la vue d'ensemble des apprenants
+     */
+    function showApprenantsGlobal() {
+        UI.showModal('Vue d\'ensemble des apprenants', `
+            <div>
+                <h4>📊 Statistiques globales</h4>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; font-weight: bold; color: var(--primary);">0</div>
+                            <div style="color: #666;">Apprenants total</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; font-weight: bold; color: var(--success);">0</div>
+                            <div style="color: #666;">Formations terminées</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; font-weight: bold; color: var(--info);">0</div>
+                            <div style="color: #666;">En cours</div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px;">
+                    <p>🚧 <strong>Fonctionnalité en développement</strong></p>
+                    <p>La vue d'ensemble complète sera bientôt disponible avec :</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Tableau de bord global des apprenants</li>
+                        <li>Statistiques de progression par formation</li>
+                        <li>Rapports d'assiduité consolidés</li>
+                        <li>Export des données pour Qualiopi</li>
+                    </ul>
+                </div>
+            </div>
+        `);
+    }
+
+    /**
+     * Affiche le gestionnaire de sessions
+     */
+    function showSessionsManager() {
+        UI.showModal('Gestion des sessions', `
+            <div>
+                <h4>📅 Sessions de formation</h4>
+            
+                <div style="margin: 20px 0;">
+                    <button class="btn btn-primary" onclick="this.disabled=true; this.textContent='🚧 En développement'">
+                        ➕ Nouvelle session collective
+                    </button>
+                    <button class="btn btn-secondary" onclick="this.disabled=true; this.textContent='🚧 En développement'" style="margin-left: 10px;">
+                        📊 Planning des sessions
+                    </button>
+                </div>
+            
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h5>📋 Sessions actives</h5>
+                    <p style="color: #666; margin: 10px 0;">Aucune session active actuellement</p>
+                
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--info);">
+                        <h6 style="color: var(--info); margin-bottom: 10px;">💡 Fonctionnalités à venir</h6>
+                        <ul style="margin-left: 20px;">
+                            <li>Création de sessions collectives</li>
+                            <li>Inscription multiple d'apprenants</li>
+                            <li>Suivi de groupe en temps réel</li>
+                            <li>Rapports de session conformes Qualiopi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
     </script>
-</body>
-</html>
+ </body>   
+ </html>
