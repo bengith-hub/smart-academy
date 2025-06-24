@@ -210,7 +210,17 @@
             transition: all 0.3s ease;
             position: relative;
         }
-
+        .bpf-badge {
+            position: absolute;
+            top: 50px;
+            right: 15px;
+            background: #17a2b8;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
         .formation-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -418,7 +428,7 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .header { flex-direction: column; gap: 15px; text-align: center; }
             .modal-content { width: 98%; padding: 20px; }
-        }
+            }
     </style>
 </head>
 <body>
