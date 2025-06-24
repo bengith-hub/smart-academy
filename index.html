@@ -891,5 +891,16 @@
         }
     }   
     </script>
+    <script>
+    // Fonction globale pour le test de connexion
+    function testApiConnection() {
+        if (typeof API !== 'undefined' && API.testConnection) {
+            API.testConnection();
+        } else {
+            console.error('Module API non disponible');
+            alert('Module API non chargé. Veuillez rafraîchir la page.');
+        }
+    }
+    </script>
  </body>   
  </html>
