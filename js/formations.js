@@ -103,6 +103,7 @@ const Formations = {
                 <div class="formation-status status-${formation.statut === 'Active' ? 'publie' : 'brouillon'}">
                     ${formation.statut === 'Active' ? '📢 Publiée' : '📝 Brouillon'}
                 </div>
+                ${formation.bpf ? '<div class="bpf-badge">📊 BPF</div>' : ''}
                 <h3 class="formation-title">${formation.titre}</h3>
                 <div class="formation-meta">
                     ${formation.domaine} • ${formation.dureeHeures}h • ${formation.tarifHT}€ HT • ${modulesCount} modules
@@ -314,6 +315,15 @@ const Formations = {
                     <div class="form-group">
                         <label class="form-label">Prix HT (€)</label>
                         <input type="number" id="edit-prix" class="form-input" value="${formation.tarifHT}" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="edit-bpf" ${formation.bpf ? 'checked' : ''}> 
+                            📊 Inclure dans le Bilan Pédagogique et Financier (BPF)
+                        </label>
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            💡 Les formations incluses dans le BPF seront comptabilisées dans les rapports Qualiopi annuels
+                        </small>
                     </div>
                 </div>
 
@@ -569,6 +579,7 @@ const Formations = {
                 modalitesEvaluation: document.getElementById('edit-evaluation').value,
                 scoreMinimum: parseInt(document.getElementById('edit-score').value),
                 tarifHT: parseInt(document.getElementById('edit-prix').value),
+                bpf: document.getElementById('edit-bpf').checked,
                 modules: JSON.parse(JSON.stringify(this.editingFormation.modules || []))
             };
 
