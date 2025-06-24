@@ -193,7 +193,20 @@ const Formations = {
         if (!formation) return;
 
         this.editingFormation = JSON.parse(JSON.stringify(formation)); // Clone profond
-
+        // 🆕 NOUVELLE CORRECTION : Gestion des modules string depuis Google Sheets
+        if (typeof this.editingFormation.modules === 'string') {
+        console.log('🔧 Modules détecté comme string depuis Google Sheets:', this.editingFormation.modules);
+        
+        // Convertir "Module1,Module2,Module3" en tableau d'objets
+        const moduleNames = this.editingFormation.modules.split(',').map(name => name.trim());
+        this.editingFormation.modules = moduleNames.map((name, index) => ({
+            titre: name,
+            description: `Description du ${name}`,
+            canvaUrl: ''
+        }));
+        
+        console.log('✅ Modules convertis:', this.editingFormation.modules);
+    }
     // CORRECTION PRINCIPALE: Vérifier et corriger le type de modules
     if (typeof this.editingFormation.modules === 'number') {
         console.log('⚠️ Modules détecté comme nombre (' + this.editingFormation.modules + '), création tableau par défaut');
