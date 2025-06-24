@@ -555,12 +555,29 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Smart Academy - Démarrage...');
-    
-        // NOUVEAU: Initialiser la configuration d'abord
+
+        // Initialiser la configuration d'abord
         Config.init();
     
+        // NOUVEAU: Remplir automatiquement l'URL dans l'interface
+        const apiUrlInput = document.getElementById('api-url');
+        if (apiUrlInput && !apiUrlInput.value) {
+            apiUrlInput.value = Config.current.apiUrl;
+        }
+    
+        const formationUrlInput = document.getElementById('formation-base-url');
+        if (formationUrlInput && !formationUrlInput.value) {
+            formationUrlInput.value = Config.current.formationUrl;
+        }
+
         SmartAcademy.init();
-});
+        // Test automatique de la connexion
+        setTimeout(() => {
+            if (Config.current.apiUrl) {
+                testApiConnection();
+            }
+        }, 1000);
+    }); 
     </script>
 </body>
 </html>
