@@ -129,7 +129,9 @@ const Formations = {
                     <button class="btn btn-secondary" onclick="Apprenants.manage('${formation.id}')">
                         👥 Apprenants
                     </button>
-                </div>
+                    <button class="btn btn-danger" onclick="Formations.confirmDelete('${formation.id}')">
+                        🗑️ Supprimer
+                    </button>
             </div>
         `;
     },
@@ -726,6 +728,97 @@ const Formations = {
             </div>
         `);
     }
+    /**
+     * Confirme la suppression d'une formation
+     */
+    confirmDelete(formationId) {
+        const formation = this.list.find(f => f.id === formationId);
+        if (!formation) return;
+
+        const hasApprenants = formation.apprenants > 0; // À adapter selon votre structure
+    
+        const warningMessage = hasApprenants 
+            ? '⚠️ Cette formation a des apprenants inscrits ! La supprimer supprimera aussi tous les liens d\'accès.' 
+            : '';
+
+        UI.showModal('Confirmer la suppression', `
+            <div style="text-align: center;">
+                <h4 style="color: var(--danger); margin-bottom: 20px;">🗑️ Supprimer la formation</h4>
+            
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: left;">
+                    <h5 style="color: var(--primary);">${formation.titre}</h5>
+                    <p><strong>Domaine :</strong> ${formation.domaine}</p>
+                    <p><strong>Durée :</strong> ${formation.dureeHeures}h</p>
+                    <p><strong>Statut :</strong> ${formation.statut === 'Active' ? '📢 Publiée' : '📝 Brouillon'}</p>
+                    ${formation.bpf ? '<p><strong>📊 Incluse dans le BPF</strong></p>' : ''}
+                </div>
+
+                ${warningMessage ? `
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <p style="color: #856404; margin: 0;">${warningMessage}</p>
+                    </div>
+                ` : ''}
+
+                <div style="background: #f8d7da; border: 1px solid #dc3545; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="color: #721c24; margin: 0;">
+                        <strong>⚠️ Attention :</strong> Cette action est <strong>irréversible</strong>. 
+                        La formation sera définitivement supprimée de Google Sheets.
+                    </p>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <button class="btn btn-secondary" onclick="UI.closeModal()" style="margin-right: 15px;">
+                        Annuler
+                    </button>
+                    <button class="btn btn-danger" onclick="Formations.deleteFormation('${formation.id}')">
+                        🗑️ Confirmer la suppression
+                    </button>
+                </div>
+            </div>
+        `);
+    },
+
+    /**
+     * Supprime définitivement une formation
+     */
+    async deleteFormation(formationId) {
+        const formation = this.list.find(f => f.id === formationId);
+        if (!formation) {
+            UI.showNotification('❌ Formation introuvable', 'error');
+            return;
+        }
+
+        UI.closeModal();
+    
+        // Afficher un loader pendant la suppression
+        UI.showNotification('🗑️ Suppression en cours...', 'info');
+
+        try {
+            const result = await API.deleteFormation(formationId);
+
+            if (result.success) {
+                // Supprimer de la liste locale
+                 this.list = this.list.filter(f => f.id !== formationId);
+            
+                // Mettre à jour l'interface
+                this.render();
+                this.updateStats();
+            
+                // Mettre à jour les statistiques BPF
+                if (window.BPF && BPF.refreshStats) {
+                    BPF.refreshStats();
+                }
+
+                UI.showNotification(`✅ Formation "${formation.titre}" supprimée avec succès !`, 'success');
+            } else {
+                throw new Error(result.error || 'Erreur lors de la suppression');
+            }
+
+        } catch (error) {
+            console.error('❌ Erreur suppression formation:', error);
+            UI.showNotification('❌ Erreur : ' + error.message, 'error');
+        }
+    },
 };
 
 // Export du module
