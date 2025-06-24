@@ -528,25 +528,36 @@ const Formations = {
     /**
      * Sauvegarde complète
      */
+
     async saveComplete(formationId) {
-        console.log('🔍 DEBUG saveComplete - formationId reçu:', formationId);
-        console.log('🔍 DEBUG editingFormation:', this.editingFormation);
+        console.log('🔥 DEBUG saveComplete - DÉBUT:', formationId);
+        console.log('🔥 DEBUG editingFormation:', this.editingFormation);
+    
         // Validation
         const titre = document.getElementById('edit-titre').value.trim();
+        console.log('🔥 DEBUG titre:', titre);
+    
         if (!titre) {
+            console.log('🔥 DEBUG - Titre manquant, arrêt');
             UI.showNotification('❌ Le titre est obligatoire', 'error');
             return;
         }
 
         // Vérifier que tous les modules ont un titre
         const modulesTitres = document.querySelectorAll('.module-titre');
+        console.log('🔥 DEBUG modulesTitres trouvés:', modulesTitres.length);
+    
         for (let input of modulesTitres) {
+            console.log('🔥 DEBUG module titre:', input.value);
             if (!input.value.trim()) {
+                console.log('🔥 DEBUG - Module sans titre, arrêt');
                 UI.showNotification('❌ Tous les modules doivent avoir un titre', 'error');
                 input.focus();
                 return;
             }
         }
+
+        console.log('🔥 DEBUG - Validation OK, création updatedFormation');
 
         try {
             const updatedFormation = {
@@ -561,15 +572,19 @@ const Formations = {
                 modules: JSON.parse(JSON.stringify(this.editingFormation.modules || []))
             };
 
-            console.log('Données complètes à sauvegarder:', updatedFormation);
-            console.log('🔍 DEBUG avant appel API - formationId:', formationId);
-            console.log('🔍 DEBUG données à envoyer:', updatedFormation);
+            console.log('🔥 DEBUG updatedFormation créé:', updatedFormation);
+            console.log('🔥 DEBUG - Appel API.updateFormationComplete...');
+        
             const result = await API.updateFormationComplete(formationId, updatedFormation);
+        
+            console.log('🔥 DEBUG - Retour API:', result);
 
             if (result.success) {
+                console.log('🔥 DEBUG - API success = true');
                 // Mettre à jour l'état local avec les modules modifiés
                 const formation = this.list.find(f => f.id === formationId);
                 if (formation) {
+                    console.log('🔥 DEBUG - Formation trouvée, mise à jour locale');
                     Object.assign(formation, updatedFormation);
                     // S'assurer que les modules sont correctement copiés
                     formation.modules = JSON.parse(JSON.stringify(this.editingFormation.modules || []));
@@ -577,20 +592,21 @@ const Formations = {
                     this.render();
                     UI.closeModal();
                     UI.showNotification('✅ Formation sauvegardée avec succès !', 'success');
-
-                    // Actualiser depuis l'API après un délai plus long
-                    // setTimeout(() => this.load(), 2000);
+                } else {
+                    console.log('🔥 DEBUG - Formation NON trouvée dans la liste');
                 }
             } else {
+                console.log('🔥 DEBUG - API success = false');
                 throw new Error(result.error || 'Erreur lors de la sauvegarde');
             }
 
         } catch (error) {
-            console.error('Erreur sauvegarde complète:', error);
+            console.error('🔥 DEBUG - ERREUR dans try/catch:', error);
 
             // Mise à jour locale en cas d'erreur API
             const formation = this.list.find(f => f.id === formationId);
             if (formation) {
+                console.log('🔥 DEBUG - Mise à jour locale en cas d\'erreur');
                 Object.assign(formation, {
                     titre: document.getElementById('edit-titre').value,
                     domaine: document.getElementById('edit-domaine').value,
