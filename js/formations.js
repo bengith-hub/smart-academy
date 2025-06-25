@@ -153,7 +153,13 @@ const Formations = {
                     <button class="btn btn-danger" onclick="Formations.confirmDelete('${formation.id}')">
                         🗑️ Supprimer
                     </button>
-            </div>
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" class="bpf-checkbox" ${formation.bpf ? 'checked' : ''}>
+                        Formation BPF
+                      </label>
+
+                </div>
         `;
     },
 
@@ -614,7 +620,8 @@ const Formations = {
                 bpf: document.getElementById('edit-bpf').checked,
                 modules: JSON.parse(JSON.stringify(this.editingFormation.modules || []))
             };
-
+            updatedFormation.bpf = document.querySelector('.bpf-checkbox')?.checked || false;
+            
             console.log('🔥 DEBUG updatedFormation créé:', updatedFormation);
             console.log('🔥 DEBUG - Appel API.updateFormationComplete...');
         
