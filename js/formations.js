@@ -93,7 +93,12 @@ const Formations = {
             return;
         }
 
-        grid.innerHTML = this.list.map(formation => this.generateFormationCard(formation)).join('');
+        grid.innerHTML = '';
+        this.list.forEach(formation => {
+            const temp = document.createElement('div');
+            temp.innerHTML = this.generateFormationCard(formation);
+            grid.appendChild(temp.firstElementChild);
+        });
     },
 
     /**
