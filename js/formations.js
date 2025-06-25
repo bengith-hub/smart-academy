@@ -623,12 +623,9 @@ const Formations = {
             }
         } catch (error) {
             console.error('🔥 DEBUG - ERREUR dans try/catch:', error);
-        }
-        if (window.BPF && BPF.refreshStats) {
-            BPF.refreshStats();
-        }
-
+            
             // Mise à jour locale en cas d'erreur API
+            const formation = this.list.find(f => f.id === formationId);
             if (formation) {
                 console.log('🔥 DEBUG - Mise à jour locale en cas d\'erreur');
                 Object.assign(formation, {
@@ -649,6 +646,11 @@ const Formations = {
             } else {
                 UI.showNotification('❌ Erreur : ' + error.message, 'error');
             }
+        }
+        
+        // Mettre à jour BPF après traitement
+        if (window.BPF && BPF.refreshStats) {
+            BPF.refreshStats();
         }
     },
 
