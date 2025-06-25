@@ -331,7 +331,7 @@ const API = {
                 modules: Config.DEFAULT_MODULES
             }
         ];
-    }
+    },
     /**
      * Supprime une formation
      */
