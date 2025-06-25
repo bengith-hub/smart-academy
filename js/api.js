@@ -254,7 +254,7 @@ const API = {
                 action: 'modifierFormationComplete',
                 id: formationId,
                 ...formationData,
-                tarifHT: formationData.tarifHT ?? 0  // 👈 ajout ici
+                tarifHT: formationData.tarifHT ?? 0,  // 👈 ajout ici
                 bpf: formationData.bpf ?? false
             };
 
