@@ -255,6 +255,7 @@ const API = {
                 id: formationId,
                 ...formationData,
                 tarifHT: formationData.tarifHT ?? 0  // 👈 ajout ici
+                bpf: formationData.bpf ?? false
             };
 
             console.log('📤 Données à envoyer:', requestData);
