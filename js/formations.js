@@ -105,7 +105,32 @@ const Formations = {
      * Génère la carte HTML d'une formation
      */
     generateFormationCard(formation) {
-        const modulesCount = formation.modules ? formation.modules.length : 0;
+      let modulesCount = 0;
+      try {
+        if (typeof formation.modules === 'string') {
+          const parsed = JSON.parse(formation.modules);
+          if (Array.isArray(parsed)) {
+            modulesCount = parsed.length;
+          } else {
+            modulesCount = formation.modules.split(',').length;
+          }
+        } else if (Array.isArray(formation.modules)) {
+          modulesCount = formation.modules.length;
+        }
+      } catch (e) {
+        modulesCount = typeof formation.modules === 'string'
+          ? formation.modules.split(',').length
+          : 0;
+      }
+
+      return `
+        <div class="formation-card" data-formation-id="${formation.id}">
+          ...
+          ${formation.domaine} • ${formation.dureeHeures || '?'}h • ${formation.tarifHT ?? '—'}€ HT • ${modulesCount} modules
+          ...
+        </div>
+      `;
+    }
 
         return `
             <div class="formation-card" data-formation-id="${formation.id}">
