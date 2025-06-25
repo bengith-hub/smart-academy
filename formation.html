@@ -1011,7 +1011,7 @@
         let API_URL;
         document.addEventListener('DOMContentLoaded', function() {
             Config.init(); // Initialiser Config AVANT tout
-            API_URL = Config.current.apiUrl || Config.DEFAULT_API_URL; // PUIS assigner l'URL
+            API_URL = Config.current.apiUrl;
     
             console.log('🚀 Smart Academy - Démarrage...');
             initializeFormation();
