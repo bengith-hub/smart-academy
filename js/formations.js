@@ -115,7 +115,7 @@ const Formations = {
                 ${formation.bpf ? '<div class="bpf-badge">📊 BPF</div>' : ''}
                 <h3 class="formation-title">${formation.titre}</h3>
                 <div class="formation-meta">
-                    ${formation.domaine} • ${formation.dureeHeures}h • ${formation.tarifHT}€ HT • ${modulesCount} modules
+                    ${formation.domaine} • ${formation.dureeHeures || '?'}h • ${formation.tarifHT ?? '—'}€ HT • ${modulesCount} modules
                 </div>
                 <div class="formation-description" title="${formation.objectifs}">
                     ${formation.objectifs.length > 120 ? formation.objectifs.substring(0, 120) + '...' : formation.objectifs}
