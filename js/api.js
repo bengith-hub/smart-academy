@@ -235,6 +235,9 @@ const API = {
      * Crée une nouvelle formation
      */
     async createFormation(formationData) {
+        if (!formationData.tarifHT) {
+            formationData.tarifHT = 0; // ou 500 par défaut
+        }
         return await this.call('creerFormation', formationData);
     },
 
@@ -250,7 +253,8 @@ const API = {
             const requestData = {
                 action: 'modifierFormationComplete',
                 id: formationId,
-                ...formationData
+                ...formationData,
+                tarifHT: formationData.tarifHT ?? 0  // 👈 ajout ici
             };
 
             console.log('📤 Données à envoyer:', requestData);
