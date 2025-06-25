@@ -227,23 +227,23 @@ const SmartAcademy = {
      * Affiche le message de bienvenue
      */
     showWelcomeMessage() {
-    try {
-        const hasVisited = localStorage.getItem('smart_academy_visited');
+        try {
+            const hasVisited = localStorage.getItem('smart_academy_visited');
         
-        if (!hasVisited) {
+            if (!hasVisited) {
+                setTimeout(() => {
+                    UI.showNotification(`🎓 Bienvenue dans Smart Academy v${this.version} !`, 'success');
+                    localStorage.setItem('smart_academy_visited', 'true');
+                }, 1000);
+            }
+        } catch (error) {
+            console.warn('localStorage non disponible, ignoré');
+            // Afficher le message quand même
             setTimeout(() => {
                 UI.showNotification(`🎓 Bienvenue dans Smart Academy v${this.version} !`, 'success');
-                localStorage.setItem('smart_academy_visited', 'true');
             }, 1000);
         }
-    } catch (error) {
-        console.warn('localStorage non disponible, ignoré');
-        // Afficher le message quand même
-        setTimeout(() => {
-            UI.showNotification(`🎓 Bienvenue dans Smart Academy v${this.version} !`, 'success');
-        }, 1000);
-    }
-    
+    },
     /**
      * Obtient les informations système
      */
