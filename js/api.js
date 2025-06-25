@@ -37,7 +37,7 @@ const API = {
             console.log('📡 Réponse brute:', response);
 
             if (!response.ok) {
-                throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+                throw new Error('Erreur HTTP ${response.status}: ${response.statusText}');
             }
 
             const result = await response.json();
