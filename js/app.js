@@ -2,7 +2,7 @@
  * Smart Academy - Application Principale
  * 🚀 Orchestration des modules et initialisation
  */
-
+console.log('👀 API est-elle disponible ?', typeof window.API, window.API);
 const SmartAcademy = {
     // Version de l'application
     version: '2.0.0',
