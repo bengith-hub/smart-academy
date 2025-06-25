@@ -123,15 +123,6 @@ const Formations = {
           : 0;
       }
 
-      return `
-        <div class="formation-card" data-formation-id="${formation.id}">
-          ...
-          ${formation.domaine} • ${formation.dureeHeures || '?'}h • ${formation.tarifHT ?? '—'}€ HT • ${modulesCount} modules
-          ...
-        </div>
-      `;
-    }
-
         return `
             <div class="formation-card" data-formation-id="${formation.id}">
                 <div class="formation-status status-${formation.statut === 'Active' ? 'publie' : 'brouillon'}">
