@@ -621,7 +621,6 @@ const Formations = {
                 console.log('🔥 DEBUG - API success = false');
                 throw new Error(result.error || 'Erreur lors de la sauvegarde');
             }
-
         } catch (error) {
             console.error('🔥 DEBUG - ERREUR dans try/catch:', error);
         }
@@ -630,7 +629,6 @@ const Formations = {
         }
 
             // Mise à jour locale en cas d'erreur API
-            const formation = this.list.find(f => f.id === formationId);
             if (formation) {
                 console.log('🔥 DEBUG - Mise à jour locale en cas d\'erreur');
                 Object.assign(formation, {
